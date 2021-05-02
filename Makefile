@@ -1,7 +1,7 @@
 run:
-	ansible-playbook ansible-playbook.yml
+	ansible-playbook workstations.yml
 
 .PHONY: lint run
 
 lint:
-	ansible-lint ansible-playbook.yml
+	ansible-lint workstations.yml

@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: workstations
   tasks:
     - name: Configura huso horario
       timezone:
@@ -51,7 +51,7 @@
       reboot:
       become: yes
 
-- hosts: all
+- hosts: workstations
   tasks:
     - name: Prueba Docker
       docker_container:
