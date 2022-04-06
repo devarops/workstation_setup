@@ -1,5 +1,5 @@
 ---
-- hosts: workstations
+- hosts: development
   tasks:
     - name: Configura huso horario
       timezone:
