@@ -51,7 +51,7 @@
       reboot:
       become: yes
 
-- hosts: workstations
+- hosts: development
   tasks:
     - name: Prueba Docker
       docker_container:
