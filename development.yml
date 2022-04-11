@@ -16,6 +16,11 @@
         name: "docker.io"
         state: present
       become: yes
+    - name: Instala Powerline fonts
+      apt:
+        name: "fonts-powerline"
+        state: present
+      become: yes
     - name: Instala Git
       apt:
         name: "git"
@@ -26,15 +31,33 @@
         name: "make"
         state: present
       become: yes
+    - name: Instala Neofetch
+      apt:
+        name: "neofetch"
+        state: present
+      become: yes
+    - name: Instala Neovim
+      apt:
+        name: "neovim"
+        state: present
+      become: yes
     - name: Instala pip
       apt:
         name: "python3-pip"
+        state: present
+      become: yes
+    - name: Instala tmux
+      apt:
+        name: "tmux"
         state: present
       become: yes
     - name: Instala Docker SDK para Python
       pip:
         name: docker
       notify: Reinicia servidor
+    - name: Instala Powerline shell
+      pip:
+        name: powerline-shell
     - name: Agrega '{{ ansible_user_id }}' al grupo docker
       user:
         name: "{{ ansible_user_id }}"
