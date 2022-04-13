@@ -11,6 +11,11 @@
         update_cache: yes
       become: yes
       notify: Reinicia servidor
+    - name: Instala cURL
+      apt:
+        name: "curl"
+        state: present
+      become: yes
     - name: Instala Docker
       apt:
         name: "docker.io"
@@ -44,6 +49,11 @@
     - name: Instala pip
       apt:
         name: "python3-pip"
+        state: present
+      become: yes
+    - name: Instala ripgrep
+      apt:
+        name: "ripgrep"
         state: present
       become: yes
     - name: Instala tmux
