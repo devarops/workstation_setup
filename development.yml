@@ -61,6 +61,11 @@
         name: "tmux"
         state: present
       become: yes
+    - name: Instala ctags
+      apt:
+        name: "universal-ctags"
+        state: present
+      become: yes
     - name: Instala Docker SDK para Python
       pip:
         name: docker
