@@ -21,6 +21,16 @@
         name: "docker.io"
         state: present
       become: yes
+    - name: Instala exa
+      apt:
+        name: "exa"
+        state: present
+      become: yes
+    - name: Instala fd
+      apt:
+        name: "fd-find"
+        state: present
+      become: yes
     - name: Instala Powerline fonts
       apt:
         name: "fonts-powerline"
