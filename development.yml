@@ -108,6 +108,12 @@
         path: "{{ ansible_facts.user_dir }}/.profile"
         line: source $HOME/.vault/.secrets
       notify: Reinicia servidor
+    - name: Clone testmake repository
+      git:
+        repo: https://github.com/IslasGECI/testmake.git
+        dest: "{{ ansible_facts.user_dir }}/testmake/"
+        clone: yes
+        update: yes
   handlers:
     - name: Reinicia servidor
       reboot:
