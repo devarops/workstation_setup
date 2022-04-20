@@ -101,7 +101,7 @@
         dest: "{{ ansible_facts.user_dir }}"
     - name: Copia claves SSH
       copy:
-        src: ~/.ssh/id_rsa*
+        src: ~/.ssh/id_rsa
         dest: "{{ ansible_facts.user_dir }}/.ssh/"
   handlers:
     - name: Reinicia servidor
