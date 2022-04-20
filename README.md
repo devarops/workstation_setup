@@ -49,7 +49,3 @@
 1. Entra mediante: `ssh root@islasgeci.dev`
 1. Instala [geci-testmake](https://github.com/IslasGECI/testmake)
 1. Agrega tu nombre y correo en Git: `git config --global --edit`
-
-# Related repo
-
-- [Development server setup via Ansible](https://github.com/IslasGECI/development_server_setup)
