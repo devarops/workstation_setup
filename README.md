@@ -21,9 +21,7 @@
 
 1. [Reasigna la IP](https://cloud.digitalocean.com/networking/floating_ips) flotante correspondiente a la Droplet nueva
 
-## En tu estación de trabajo
-
-> NOTA: En realidad esto no tiene que ser en tu estación de trabajo, podría ser desde otra estación de trabajo o servidor mediante Terraform.
+## To do: Mover esto al Dockerfile de este repositorio
 
 1. Agrega o actualiza la bóbeda secreta de tu estación de trabajo
 1. Instala Ansible y Make: `sudo apt update && sudo apt install --yes ansible make`
