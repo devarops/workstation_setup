@@ -1,0 +1,6 @@
+[user]
+	email = Ciencia de Datos • GECI
+	name = ciencia.datos@islas.org.mx
+
+[init]
+	defaultBranch = develop
