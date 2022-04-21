@@ -121,6 +121,10 @@
         dest: "{{ ansible_facts.user_dir }}/testmake/"
         clone: yes
         update: yes
+    - name: Run 'install' testmake
+      make:
+        chdir: "{{ ansible_facts.user_dir }}/testmake"
+        target: install
   handlers:
     - name: Reinicia servidor
       reboot:
