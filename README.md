@@ -42,9 +42,3 @@
     ANSIBLE_HOST_KEY_CHECKING=False && make
     ```
 
-## En el servidor de desarrollo
-
-> TODO: Mueve esta sección al _playbook_ que se encuentra en [Development server setup via Ansible](https://github.com/IslasGECI/development_server_setup)
-
-1. Entra mediante: `ssh root@islasgeci.dev`
-1. Agrega tu nombre y correo en Git: `git config --global --edit`
