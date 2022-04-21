@@ -125,6 +125,10 @@
       make:
         chdir: "{{ ansible_facts.user_dir }}/testmake"
         target: install
+    - name: Copia configuración del Git
+      copy:
+        src: .config/.gitconfig
+        dest: "{{ ansible_facts.user_dir }}/"
   handlers:
     - name: Reinicia servidor
       reboot:
