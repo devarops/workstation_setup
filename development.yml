@@ -95,6 +95,13 @@
         append: yes
       become: yes
       notify: Reinicia servidor
+  handlers:
+    - name: Reinicia servidor
+      reboot:
+      become: yes
+
+- hosts: development
+  tasks:
     - name: Copia credenciales
       copy:
         src: ~/.vault
