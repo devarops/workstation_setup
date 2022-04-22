@@ -22,6 +22,8 @@
 
 ## En tu estación de trabajo
 
+> TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
+
 Para configurar el servidor, ejecuta lo siguiente:
 
 ``` shell
