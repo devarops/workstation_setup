@@ -19,7 +19,7 @@
 ![image](https://user-images.githubusercontent.com/35377740/164117896-95a0edb4-c59a-42cc-855f-0745d591321c.png)
 1. [Reasigna la IP](https://cloud.digitalocean.com/networking/floating_ips) flotante correspondiente a la Droplet nueva
 
-## En tu estación de trabajo
+## En tu cliente liviano
 
 > TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
 
@@ -27,5 +27,5 @@ Para configurar el servidor, ejecuta lo siguiente:
 
 ``` shell
 docker pull islasgeci/development_server_setup:latest
-docker run --rm --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secret:/root/.vault/.secret islasgeci/development_server_setup:latest make
+docker run --rm --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
 ```
