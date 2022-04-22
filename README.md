@@ -27,5 +27,5 @@ Para configurar el servidor, ejecuta lo siguiente:
 
 ``` shell
 docker pull islasgeci/development_server_setup:latest
-docker run --rm --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
+docker run --rm --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest bash -c "ANSIBLE_HOST_KEY_CHECKING=False && make"
 ```
