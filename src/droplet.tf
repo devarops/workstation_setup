@@ -2,7 +2,7 @@ resource "digitalocean_droplet" "devserver" {
   image = "ubuntu-21-10-x64"
   name = "devserver"
   region = "sfo3"
-  size = "s-1vcpu-1gb"
+  size = "s-4vcpu-8gb-intel"
   ssh_keys = [
     data.digitalocean_ssh_key.nepo.id,
     data.digitalocean_ssh_key.evaro.id
