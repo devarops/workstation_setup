@@ -28,6 +28,7 @@ docker pull islasgeci/development_server_setup:latest
 docker run --interactive --rm --tty --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
 ```
 
+_To do_:
 - [ ] Eliminar la confirmación manual de verificación de calves SSH; actualmente `docker run` es interactivo
 - [ ] Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org) (no podemos correr Docker en los clientes livianos)
 
@@ -45,6 +46,7 @@ git --git-dir=${HOME}/repositorios/dotfiles.git --work-tree=${HOME} config --loc
 source ~/.profile
 ```
 
+_To do_:
 - [ ] Mueve el bloque de código anterio a un _script_
 - [ ] Mueve esto al _playbook_
 
@@ -66,6 +68,7 @@ git --git-dir=${HOME}/repositorios/dotfiles.git --work-tree=${HOME} config --loc
 source ~/.profile
 ```
 
+_To do_:
 - [ ] Mueve el bloque de código anterio a un _script_
 
 ### Ejemplos de repositorios `dotfiles`
