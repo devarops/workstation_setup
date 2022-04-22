@@ -1,13 +1,24 @@
 run:
 	ansible-playbook development.yml
 
-.PHONY: create destroy lint run
+.PHONY: \
+	create_server \
+	destroy_server \
+	devserver lint \
+	run \
+	setup_server
 
-create:
-	cd src && terraform apply -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
+create_server:
+	cd src && terraform apply -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
-destroy:
-	cd src && terraform destroy -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
+destroy_server:
+	cd src && terraform destroy -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
+
+devserver: create_server setup_server
 
 lint:
 	ansible-lint development.yml
+
+setup_server:
+	docker pull islasgeci/development_server_setup:latest
+	docker run --interactive --rm --tty --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
