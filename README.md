@@ -21,11 +21,51 @@
 
 ## En tu cliente liviano
 
-> TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
-
 Para configurar el servidor, ejecuta lo siguiente:
 
 ``` shell
 docker pull islasgeci/development_server_setup:latest
 docker run --interactive --rm --tty --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
 ```
+
+- [ ] Eliminar la confirmación manual de verificación de calves SSH; actualmente `docker run` es interactivo
+- [ ] Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
+
+### Crea una cuenta de usuario (opcional)
+
+Opcionalmente, puedes crear una cuenta de usuario para personalizar tu entorno de sesarrollo.
+
+1. Entra mediante `ssh root@islasgeci.dev`
+2. Ejecuta:
+```shell
+export NEW_USERNAME=<GITHUB USERNAME>
+adduser $NEW_USERNAME
+usermod -aG sudo $NEW_USERNAME
+su - $NEW_USERNAME
+mkdir --parents ~/repositorios
+git clone --bare git@github.com:$USER/dotfiles.git ~/repositorios/dotfiles.git
+git --git-dir=${HOME}/repositorios/dotfiles.git --work-tree=${HOME} checkout
+git --git-dir=${HOME}/repositorios/dotfiles.git --work-tree=${HOME} config --local status.showUntrackedFiles no
+source ~/.profile
+```
+
+- [ ] Mueve el bloque de código anterio a un _script_
+
+### Perzonaliza la cuenta del equipo (opcional)
+
+Opcionalmente, puedes crear una cuenta de usuario para personalizar el entorno de sesarrollo del equipo.
+
+1. Entra mediante `ssh root@islasgeci.dev`
+2. Ejecuta:
+```shell
+mkdir --parents ~/repositorios
+git clone --bare git@github.com:IslasGECI/dotfiles.git ~/repositorios/dotfiles.git
+git --git-dir=${HOME}/repositorios/dotfiles.git --work-tree=${HOME} checkout
+git --git-dir=${HOME}/repositorios/dotfiles.git --work-tree=${HOME} config --local status.showUntrackedFiles no
+source ~/.profile
+```
+
+### Ejemplos de repositorios `dotfiles`
+
+- [IslasGECI](https://github.com/IslasGECI/dotfiles)
+- [devarops](https://github.com/devarops/dotfiles)
