@@ -18,25 +18,13 @@
     - En el campo _Choose a hostname_, escribe `devserver`:
  
 ![image](https://user-images.githubusercontent.com/35377740/164117896-95a0edb4-c59a-42cc-855f-0745d591321c.png)
-
 1. [Reasigna la IP](https://cloud.digitalocean.com/networking/floating_ips) flotante correspondiente a la Droplet nueva
 
-## To do: Mover esto al Dockerfile de este repositorio
+## En tu estación de trabajo
 
-1. Agrega o actualiza la bóbeda secreta de tu estación de trabajo
-1. Instala Ansible y Make: `sudo apt update && sudo apt install --yes ansible make`
-1. Crea el archivo `/etc/ansible/hosts`[^ansible_hosts]
-1. En la raiz del repo [`development_server_setup`](https://github.com/IslasGECI/development_server_setup) corre el _playbook_[^playbook].
+Para configurar el servidor, ejecuta lo siguiente:
 
-[^ansible_hosts]: El contenido del archivo `/etc/ansible/hosts` es el siguiente:
-    ```
-    [development]
-    islasgeci.dev ansible_user=root
-    ```
-
-[^playbook]: En la raíz de este repositorio ejecuta:
-    ```shell
-    ssh-keygen -f "${HOME}/.ssh/known_hosts" -R "islasgeci.dev"
-    ANSIBLE_HOST_KEY_CHECKING=False && make
-    ```
-
+``` shell
+docker pull islasgeci/development_server_setup:latest
+docker run --rm --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secret:/root/.vault/.secret islasgeci/development_server_setup:latest make
+```
