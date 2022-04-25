@@ -41,6 +41,11 @@
         name: "git"
         state: present
       become: yes
+    - name: Instala Go
+      apt:
+        name: "golang-go"
+        state: present
+      become: yes
     - name: Instala Make
       apt:
         name: "make"
