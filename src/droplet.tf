@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "devserver" {
-  image = "ubuntu-21-10-x64"
+  image = "ubuntu-22-04-x64"
   name = "devserver"
   region = "sfo3"
   size = "s-4vcpu-8gb-intel"
