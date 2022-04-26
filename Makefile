@@ -16,7 +16,7 @@ create_server:
 destroy_server:
 	cd src && terraform destroy -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
-devserver: create_server setup_server
+devserver: init create_server setup_server
 
 init:
 	cd src && terraform init
