@@ -76,6 +76,11 @@
         name: "ripgrep"
         state: present
       become: yes
+    - name: Instala ShellCheck
+      apt:
+        name: "shellcheck"
+        state: present
+      become: yes
     - name: Instala tmux
       apt:
         name: "tmux"
