@@ -1,13 +1,11 @@
-run:
-	ansible-playbook development.yml
+devserver: init create_server setup_server
 
 .PHONY: \
 	create_server \
 	destroy_server \
-	devserver lint \
+	devserver \
 	init \
-	lint \
-	run \
+	linter \
 	setup_server
 
 create_server:
@@ -16,14 +14,11 @@ create_server:
 destroy_server:
 	cd src && terraform destroy -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
-devserver: init create_server setup_server
-
 init:
 	cd src && terraform init
 
-lint:
+linter:
 	ansible-lint development.yml
 
 setup_server:
-	docker pull islasgeci/development_server_setup:latest
-	docker run --interactive --rm --tty --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
+	ansible-playbook development.yml
