@@ -21,7 +21,7 @@ docker run \
     --interactive \
     --rm \
     --tty \
-    --volume $${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
-    --volume $${HOME}/.vault/.secrets:/root/.vault/.secrets \
+    --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
+    --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets \
     islasgeci/development_server_setup:latest make
 ```
