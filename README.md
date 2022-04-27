@@ -18,7 +18,7 @@
 1. Ejecuta:
 ```shell
 source ${HOME}/.vault/.secrets
-apt update && apt install --yes docker.io
+sudo apt update && sudo apt install --yes docker.io
 docker run \
     --env DO_PAT \
     --interactive \
