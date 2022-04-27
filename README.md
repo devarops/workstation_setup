@@ -12,7 +12,7 @@
 
 ## En tu cliente liviano
 
-- [ ] TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org) o al servidor donde corre el Inspector. (Las instrucciones de abajo dependen de Docker por lo que no pueden correr en los clientes livianos.)
+- [ ] TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org) o al servidor donde corre el Inspector. (Las instrucciones de esta sección dependen de Docker por lo que no pueden correr en los clientes livianos.)
 
 1. Agrega tu token de accesso personal de DigitalOcean (`DO_PAT`) a tu bóveda secreta
 1. Ejecuta:
