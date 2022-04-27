@@ -14,10 +14,13 @@
 
 > TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
 
-Para crear el servidor, ejecuta:
-
+1. Agrega tu token de accesso personal de DigitalOcean (`DO_PAT`) a tu bóveda secreta
+1. Ejecuta:
 ```shell
+source ${HOME}/.vault/.secrets
+apt update && apt install --yes docker.io
 docker run \
+    --env DO_PAT \
     --interactive \
     --rm \
     --tty \
