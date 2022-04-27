@@ -41,6 +41,11 @@
         name: "git"
         state: present
       become: yes
+    - name: Instala Go
+      apt:
+        name: "golang-go"
+        state: present
+      become: yes
     - name: Instala Make
       apt:
         name: "make"
@@ -69,6 +74,11 @@
     - name: Instala ripgrep
       apt:
         name: "ripgrep"
+        state: present
+      become: yes
+    - name: Instala ShellCheck
+      apt:
+        name: "shellcheck"
         state: present
       become: yes
     - name: Instala tmux
@@ -106,10 +116,6 @@
       copy:
         src: ~/.vault
         dest: "{{ ansible_facts.user_dir }}"
-    - name: Copia claves SSH
-      copy:
-        src: ~/.ssh/id_rsa
-        dest: "{{ ansible_facts.user_dir }}/.ssh/"
     - name: Agrega las credenciales al perfil del usuario
       ansible.builtin.lineinfile:
         path: "{{ ansible_facts.user_dir }}/.profile"

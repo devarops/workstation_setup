@@ -10,22 +10,22 @@
 
 [^ssh_pub]: Copia el contenido del archivo `~/.ssh/id_rsa.pub` de tu estación de trabajo y pégalo en las aplicaciones indicadas
 
-## En DigitalOcean
-
-1. [Crea una Droplet](https://cloud.digitalocean.com/droplets/new)
-    - Selecciona la región correspondiente a la IP flotante (actualmente es San Francisco 3: SFO3)
-    - Selecciona las claves SSH de todos los miembros del equipo como medio de autenticación
-    - En el campo _Choose a hostname_, escribe `devserver`:
-![image](https://user-images.githubusercontent.com/35377740/164117896-95a0edb4-c59a-42cc-855f-0745d591321c.png)
-1. [Reasigna la IP](https://cloud.digitalocean.com/networking/floating_ips) flotante correspondiente a la Droplet nueva
-
 ## En tu cliente liviano
 
-> TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
+- [ ] TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org) o al servidor donde corre el Inspector. (Las instrucciones de esta sección dependen de Docker por lo que no pueden correr en los clientes livianos.)
 
-Para configurar el servidor, ejecuta lo siguiente:
-
-``` shell
+1. Agrega tu token de accesso personal de DigitalOcean (`DO_PAT`) a tu bóveda secreta
+1. Ejecuta:
+```shell
+source ${HOME}/.vault/.secrets
+sudo apt update && sudo apt install --yes docker.io
 docker pull islasgeci/development_server_setup:latest
-docker run --interactive --rm --tty --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets islasgeci/development_server_setup:latest make
+docker run \
+    --env DO_PAT \
+    --interactive \
+    --rm \
+    --tty \
+    --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
+    --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets \
+    islasgeci/development_server_setup:latest make
 ```
