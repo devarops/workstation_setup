@@ -19,6 +19,7 @@
 ```shell
 source ${HOME}/.vault/.secrets
 sudo apt update && sudo apt install --yes docker.io
+docker pull islasgeci/development_server_setup:latest
 docker run \
     --env DO_PAT \
     --interactive \
