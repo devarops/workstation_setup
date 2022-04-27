@@ -14,20 +14,4 @@
 
 > TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
 
-Para crear el servidor, ejecuta lo siguiente:
-
-```shell
-make init
-make devserver
-```
-
-# Pendiente de mover a Docker
-
-### Instala Terraform
-
-```shell
-sudo apt-get update && sudo apt-get install -y gnupg software-properties-common curl
-curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-sudo apt-get update && sudo apt-get install terraform
-```
+Para crear el servidor, ejecuta `make`.
