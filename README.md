@@ -14,4 +14,14 @@
 
 > TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org)
 
-Para crear el servidor, ejecuta: `make --makefile=build/Makefike`.
+Para crear el servidor, ejecuta:
+
+```shell
+docker run \
+    --interactive \
+    --rm \
+    --tty \
+    --volume $${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
+    --volume $${HOME}/.vault/.secrets:/root/.vault/.secrets \
+    islasgeci/development_server_setup:latest make
+```
