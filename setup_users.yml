@@ -16,6 +16,13 @@
         user: nepo
         state: present
         key: https://github.com/nepito.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/nepito/dotfiles.git
+        dest: "/home/nepo/dotfiles"
+    - name: Install dotfiles
+      make:
+        chdir: "/home/nepo/dotfiles"
 - name: Setup devarops
   hosts: development
   become: true
@@ -32,4 +39,11 @@
       ansible.posix.authorized_key:
         user: devarops
         state: present
-        key: https://github.com/devarops.keys
+        key: https://github.com/devarops.keys  
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/devarops/dotfiles.git
+        dest: "/home/devarops/dotfiles"
+    - name: Install dotfiles
+      make:
+        chdir: "/home/devarops/dotfiles"
