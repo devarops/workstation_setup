@@ -1,0 +1,35 @@
+---
+- name: Setup nepo
+  hosts: development
+  become: true
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: nepo
+        groups:
+          - docker
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: nepo
+        state: present
+        key: https://github.com/nepito.keys
+- name: Setup devarops
+  hosts: development
+  become: true
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: devarops
+        groups:
+          - docker
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$oLvRdioyBDHDCav9XBFpL3KhbNAd2OVDJuYJ7j22x3QRz8BFY11zorW.8Xx6oD6mxkF0urOQBkcaL/V2YqsgI/"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: devarops
+        state: present
+        key: https://github.com/devarops.keys
