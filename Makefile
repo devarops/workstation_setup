@@ -18,6 +18,9 @@ destroy_server:
 init:
 	cd src && terraform init
 
+format:
+	cd src && terraform fmt
+
 linter:
 	ansible-lint development.yml
 
