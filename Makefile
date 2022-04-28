@@ -1,4 +1,4 @@
-devserver: init create_server setup_server
+devserver: init create_server setup_server setup_users
 
 .PHONY: \
 	create_server \
@@ -6,7 +6,8 @@ devserver: init create_server setup_server
 	devserver \
 	init \
 	linter \
-	setup_server
+	setup_server \
+	setup_users
 
 create_server:
 	cd src && terraform apply -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
@@ -22,3 +23,6 @@ linter:
 
 setup_server:
 	ansible-playbook development.yml
+
+setup_users:
+	ansible-playbook setup_users.yml
