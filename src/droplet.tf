@@ -4,8 +4,10 @@ resource "digitalocean_droplet" "devserver" {
   region = "sfo3"
   size = "s-4vcpu-8gb-intel"
   ssh_keys = [
-    data.digitalocean_ssh_key.nepo.id,
-    data.digitalocean_ssh_key.evaro.id
+    data.digitalocean_ssh_key.evaro-desktop.id,
+    data.digitalocean_ssh_key.evaro-laptop.id,
+    data.digitalocean_ssh_key.nepo-desktop.id,
+    data.digitalocean_ssh_key.nepo-laptop.id
   ]
   connection {
     host = self.ipv4_address
