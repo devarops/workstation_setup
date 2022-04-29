@@ -36,3 +36,10 @@ ssh-keyscan "islasgeci.dev" >> "$HOME/.ssh/known_hosts"
 scp -pr ~/.vault devserver:/home/$GITHUB_USERNAME/.vault
 ssh devserver
 ```
+
+## Usuarios
+
+Para que agreguemos un usuario al servidor necesitamos:
+1. Que el usuario tenga un repositorio en git que se llame dotfiles
+1. Que en la rama _develop_ tenga un `Makefile`
+1. En Makefile al menos debe de tener un _target_
