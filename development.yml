@@ -1,14 +1,37 @@
 ---
-- hosts: development
+- name: Set system up
+  hosts: development
   tasks:
     - name: Configura huso horario
       timezone:
         name: America/Los_Angeles
       become: yes
+    - name: Copia configuración del Git
+      copy:
+        src: .config/.gitconfig
+        dest: "{{ ansible_facts.user_dir }}/"
+
+- name: Install geci-testmake using ad hoc installations
+  hosts: development
+  tasks:
+    - name: Clone testmake repository
+      git:
+        repo: https://github.com/IslasGECI/testmake.git
+        dest: "{{ ansible_facts.user_dir }}/testmake/"
+        clone: yes
+        update: yes
+    - name: Run 'install' testmake
+      make:
+        chdir: "{{ ansible_facts.user_dir }}/testmake"
+        target: install
+
+- name: Install software using package managers
+  hosts: development
+  tasks:
     - name: Actualiza paquetes del sistema operativo
       apt:
-        upgrade: dist
         update_cache: yes
+        upgrade: yes
       become: yes
       notify: Reinicia servidor
     - name: Instala cURL
@@ -110,37 +133,8 @@
       reboot:
       become: yes
 
-- hosts: development
-  tasks:
-    - name: Copia credenciales
-      copy:
-        src: ~/.vault
-        dest: "{{ ansible_facts.user_dir }}"
-    - name: Agrega las credenciales al perfil del usuario
-      ansible.builtin.lineinfile:
-        path: "{{ ansible_facts.user_dir }}/.profile"
-        line: source $HOME/.vault/.secrets
-      notify: Reinicia servidor
-    - name: Clone testmake repository
-      git:
-        repo: https://github.com/IslasGECI/testmake.git
-        dest: "{{ ansible_facts.user_dir }}/testmake/"
-        clone: yes
-        update: yes
-    - name: Run 'install' testmake
-      make:
-        chdir: "{{ ansible_facts.user_dir }}/testmake"
-        target: install
-    - name: Copia configuración del Git
-      copy:
-        src: .config/.gitconfig
-        dest: "{{ ansible_facts.user_dir }}/"
-  handlers:
-    - name: Reinicia servidor
-      reboot:
-      become: yes
-
-- hosts: development
+- name: Tests
+  hosts: development
   tasks:
     - name: Prueba Docker
       docker_container:
