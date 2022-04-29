@@ -26,6 +26,10 @@
     - name: Install dotfiles
       make:
         chdir: "/home/devarops/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/devarops/.profile"
+        line: source $HOME/.vault/.secrets
     - name: Recursively change ownership of home directory
       ansible.builtin.file:
         path: "/home/devarops"
@@ -61,6 +65,10 @@
     - name: Install dotfiles
       make:
         chdir: "/home/nepo/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/nepo/.profile"
+        line: source $HOME/.vault/.secrets
     - name: Recursively change ownership of home directory
       ansible.builtin.file:
         path: "/home/nepo"
