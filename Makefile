@@ -20,8 +20,7 @@ init:
 	cd src && terraform init
 
 know_host:
-	ssh-keygen -f "$${HOME}/.ssh/known_hosts" -R "islasgeci.dev"
-	ssh-keyscan "islasgeci.dev" >> "$${HOME}/.ssh/known_hosts"
+	ssh-keyscan "islasgeci.dev" > "$${HOME}/.ssh/known_hosts"
 
 format:
 	cd src && terraform fmt
