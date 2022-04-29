@@ -1,24 +1,10 @@
 ---
-- name: Setup nepo
-  hosts: development
-  become: true
-  tasks:
-    - name: Create user
-      ansible.builtin.user:
-        name: nepo
-        groups:
-          - docker
-          - sudo
-        shell: "/bin/bash"
-        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
-    - name: Set authorized keys taken from url
-      ansible.posix.authorized_key:
-        user: nepo
-        state: present
-        key: https://github.com/nepito.keys
 - name: Setup devarops
   hosts: development
   become: true
+  environment:
+    HOME: "/home/devarops"
+    USER: "devarops"
   tasks:
     - name: Create user
       ansible.builtin.user:
@@ -33,3 +19,62 @@
         user: devarops
         state: present
         key: https://github.com/devarops.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/devarops/dotfiles.git
+        dest: "/home/devarops/dotfiles"
+        version: develop
+    - name: Install dotfiles
+      make:
+        chdir: "/home/devarops/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/devarops/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/devarops"
+        state: directory
+        recurse: true
+        owner: devarops
+        group: devarops
+
+- name: Setup nepo
+  hosts: development
+  become: true
+  environment:
+    HOME: "/home/nepo"
+    USER: "nepo"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: nepo
+        groups:
+          - docker
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: nepo
+        state: present
+        key: https://github.com/nepito.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/analislas/dotfiles.git
+        dest: "/home/nepo/dotfiles"
+        version: develop
+    - name: Install dotfiles
+      make:
+        chdir: "/home/nepo/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/nepo/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/nepo"
+        state: directory
+        recurse: true
+        owner: nepo
+        group: nepo

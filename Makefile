@@ -1,10 +1,11 @@
-devserver: init create_server setup_server setup_users
+devserver: init create_server know_host setup_server setup_users
 
 .PHONY: \
 	create_server \
 	destroy_server \
 	devserver \
 	init \
+	know_host \
 	linter \
 	setup_server \
 	setup_users
@@ -18,8 +19,15 @@ destroy_server:
 init:
 	cd src && terraform init
 
-linter:
-	ansible-lint development.yml
+know_host:
+	ssh-keyscan "islasgeci.dev" > "$${HOME}/.ssh/known_hosts"
+
+format:
+	cd src && terraform fmt
+
+check:
+	ansible-lint development.yml setup_users.yml
+	cd src && terraform fmt -check
 
 setup_server:
 	ansible-playbook development.yml

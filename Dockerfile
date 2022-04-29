@@ -3,6 +3,7 @@ COPY . .
 COPY .config/hosts /etc/ansible/hosts
 RUN apt update && apt install --yes \
     ansible \
+    ansible-lint \
     curl \
     gnupg \
     make \

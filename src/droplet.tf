@@ -1,8 +1,8 @@
 resource "digitalocean_droplet" "devserver" {
-  image = "ubuntu-22-04-x64"
-  name = "devserver"
+  image  = "ubuntu-22-04-x64"
+  name   = "devserver"
   region = "sfo3"
-  size = "s-4vcpu-8gb-intel"
+  size   = "s-4vcpu-8gb-intel"
   ssh_keys = [
     data.digitalocean_ssh_key.evaro-desktop.id,
     data.digitalocean_ssh_key.evaro-laptop.id,
@@ -10,11 +10,11 @@ resource "digitalocean_droplet" "devserver" {
     data.digitalocean_ssh_key.nepo-laptop.id
   ]
   connection {
-    host = self.ipv4_address
-    user = "root"
-    type = "ssh"
+    host        = self.ipv4_address
+    user        = "root"
+    type        = "ssh"
     private_key = file(var.pvt_key)
-    timeout = "2m"
+    timeout     = "2m"
   }
 }
 
