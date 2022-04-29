@@ -16,7 +16,7 @@
 
 > Abajo reemplaza `<Token de DigitalOcean>` con tu token de accesso personal de DigitalOcean
     
-1. Ejecuta:
+Para crear el servidor de desarrollo debemos ejecutar lo siguiente:
 ```shell
 sudo apt update && sudo apt install --yes docker.io
 docker pull islasgeci/development_server_setup:latest
@@ -27,8 +27,10 @@ docker run \
     --rm \
     --tty \
     --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
-    --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets \
     islasgeci/development_server_setup:latest make
+```
+Cada mañana para conectarte al servidor desde tu cliente liviano deberás de hacer lo siguiente
+```shel
 ssh-keygen -f "$HOME/.ssh/known_hosts" -R "islasgeci.dev"
 ssh-keyscan "islasgeci.dev" >> "$HOME/.ssh/known_hosts"
 scp -pr ~/.vault devserver:/home/$GITHUB_USERNAME/.vault
