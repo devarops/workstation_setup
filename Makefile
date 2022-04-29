@@ -25,8 +25,9 @@ know_host:
 format:
 	cd src && terraform fmt
 
-linter:
-	ansible-lint development.yml
+check:
+	ansible-lint development.yml setup_users.yml
+	cd src && terraform fmt -check
 
 setup_server:
 	ansible-playbook development.yml
