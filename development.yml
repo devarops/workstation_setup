@@ -1,30 +1,4 @@
 ---
-- name: Set system up
-  hosts: development
-  tasks:
-    - name: Configura huso horario
-      timezone:
-        name: America/Los_Angeles
-      become: yes
-    - name: Copia configuración del Git
-      copy:
-        src: .config/.gitconfig
-        dest: "{{ ansible_facts.user_dir }}/"
-
-- name: Install geci-testmake using ad hoc installations
-  hosts: development
-  tasks:
-    - name: Clone testmake repository
-      git:
-        repo: https://github.com/IslasGECI/testmake.git
-        dest: "{{ ansible_facts.user_dir }}/testmake/"
-        clone: yes
-        update: yes
-    - name: Run 'install' testmake
-      make:
-        chdir: "{{ ansible_facts.user_dir }}/testmake"
-        target: install
-
 - name: Install software using package managers
   hosts: development
   tasks:
@@ -132,6 +106,32 @@
     - name: Reinicia servidor
       reboot:
       become: yes
+
+- name: Install geci-testmake using ad hoc installation
+  hosts: development
+  tasks:
+    - name: Clone testmake repository
+      git:
+        repo: https://github.com/IslasGECI/testmake.git
+        dest: "{{ ansible_facts.user_dir }}/testmake/"
+        clone: yes
+        update: yes
+    - name: Run 'install' testmake
+      make:
+        chdir: "{{ ansible_facts.user_dir }}/testmake"
+        target: install
+
+- name: Set system up
+  hosts: development
+  tasks:
+    - name: Configura huso horario
+      timezone:
+        name: America/Los_Angeles
+      become: yes
+    - name: Copia configuración del Git
+      copy:
+        src: .config/.gitconfig
+        dest: "{{ ansible_facts.user_dir }}/"
 
 - name: Tests
   hosts: development
