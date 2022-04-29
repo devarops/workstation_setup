@@ -39,7 +39,10 @@ ssh devserver
 
 ## Usuarios
 
-Para que agreguemos un usuario al servidor necesitamos:
-1. Que el usuario tenga un repositorio en git que se llame dotfiles
+Para configurar tu usuario en el servidor necesitas agregar tu repositorio `dotfiles`. Estas son las
+características del repositorio:
+1. Que el repositorio se llame `dotfiles`
 1. Que en la rama _develop_ tenga un `Makefile`
-1. En Makefile al menos debe de tener un _target_
+1. Que el `Makefile` tenga al menos un _target_
+
+Actualmente usamos [la configuración por defecto del analislas](https://github.com/analislas/dotfiles).
