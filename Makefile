@@ -1,10 +1,11 @@
-devserver: init create_server setup_server setup_users
+devserver: init create_server know_host setup_server setup_users
 
 .PHONY: \
 	create_server \
 	destroy_server \
 	devserver \
 	init \
+	know_host \
 	linter \
 	setup_server \
 	setup_users
@@ -17,6 +18,10 @@ destroy_server:
 
 init:
 	cd src && terraform init
+
+know_host:
+	ssh-keygen -f "$${HOME}/.ssh/known_hosts" -R "islasgeci.dev"
+	ssh-keyscan "islasgeci.dev" >> "$${HOME}/.ssh/known_hosts"
 
 format:
 	cd src && terraform fmt
