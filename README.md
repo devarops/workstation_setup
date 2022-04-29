@@ -14,10 +14,11 @@
 
 - [ ] TODO: Mover esta sección a [`src/start_containers.sh`](https://github.com/IslasGECI/islasgeci.org/blob/develop/src/start_containers) de [islasgeci.org](https://github.com/IslasGECI/islasgeci.org) o al servidor donde corre el Inspector. (Las instrucciones de esta sección dependen de Docker por lo que no pueden correr en los clientes livianos.)
 
-1. Agrega tu token de accesso personal de DigitalOcean (`DO_PAT`) a tu bóveda secreta
+> Abajo reemplaza `<Token de DigitalOcean>` con tu token de accesso personal de DigitalOcean
+    
 1. Ejecuta:
 ```shell
-source ${HOME}/.vault/.secrets
+export DO_PAT=<Token de DigitalOcean>
 sudo apt update && sudo apt install --yes docker.io
 docker pull islasgeci/development_server_setup:latest
 docker run \
@@ -28,4 +29,8 @@ docker run \
     --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
     --volume ${HOME}/.vault/.secrets:/root/.vault/.secrets \
     islasgeci/development_server_setup:latest make
+ssh-keygen -f "$HOME/.ssh/known_hosts" -R "islasgeci.dev"
+ssh-keyscan "islasgeci.dev" >> "$HOME/.ssh/known_hosts"
+scp -pr ~/.vault devserver:/home/$GITHUB_USERNAME/.vault
+ssh devserver
 ```
