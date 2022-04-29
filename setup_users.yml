@@ -23,6 +23,13 @@
     - name: Install dotfiles
       make:
         chdir: "/home/devarops/dotfiles"
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/devarops"
+        state: directory
+        recurse: yes
+        owner: devarops
+        group: devarops
 
 - name: Setup nepo
   hosts: development
@@ -48,3 +55,10 @@
     - name: Install dotfiles
       make:
         chdir: "/home/nepo/dotfiles"
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/nepo"
+        state: directory
+        recurse: yes
+        owner: nepo
+        group: nepo
