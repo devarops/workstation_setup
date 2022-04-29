@@ -18,9 +18,9 @@
     
 1. Ejecuta:
 ```shell
-export DO_PAT=<Token de DigitalOcean>
 sudo apt update && sudo apt install --yes docker.io
 docker pull islasgeci/development_server_setup:latest
+export DO_PAT=<Token de DigitalOcean>
 docker run \
     --env DO_PAT \
     --interactive \
