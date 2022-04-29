@@ -4,88 +4,88 @@
   tasks:
     - name: Actualiza paquetes del sistema operativo
       apt:
-        update_cache: yes
-      become: yes
+        update_cache: true
+      become: true
     - name: Instala cURL
       apt:
         name: "curl"
         state: present
-      become: yes
+      become: true
     - name: Instala Docker
       apt:
         name: "docker.io"
         state: present
-      become: yes
+      become: true
     - name: Instala exa
       apt:
         name: "exa"
         state: present
-      become: yes
+      become: true
     - name: Instala fd
       apt:
         name: "fd-find"
         state: present
-      become: yes
+      become: true
     - name: Instala Powerline fonts
       apt:
         name: "fonts-powerline"
         state: present
-      become: yes
+      become: true
     - name: Instala Git
       apt:
         name: "git"
         state: present
-      become: yes
+      become: true
     - name: Instala Go
       apt:
         name: "golang-go"
         state: present
-      become: yes
+      become: true
     - name: Instala Make
       apt:
         name: "make"
         state: present
-      become: yes
+      become: true
     - name: Instala Neofetch
       apt:
         name: "neofetch"
         state: present
-      become: yes
+      become: true
     - name: Instala Neovim
       apt:
         name: "neovim"
         state: present
-      become: yes
+      become: true
     - name: Instala Node Package Manager
       apt:
         name: "npm"
         state: present
-      become: yes
+      become: true
     - name: Instala pip
       apt:
         name: "python3-pip"
         state: present
-      become: yes
+      become: true
     - name: Instala ripgrep
       apt:
         name: "ripgrep"
         state: present
-      become: yes
+      become: true
     - name: Instala ShellCheck
       apt:
         name: "shellcheck"
         state: present
-      become: yes
+      become: true
     - name: Instala tmux
       apt:
         name: "tmux"
         state: present
-      become: yes
+      become: true
     - name: Instala ctags
       apt:
         name: "universal-ctags"
         state: present
-      become: yes
+      become: true
     - name: Instala Docker SDK para Python
       pip:
         name: docker
@@ -97,13 +97,13 @@
       user:
         name: "{{ ansible_user_id }}"
         groups: docker
-        append: yes
-      become: yes
+        append: true
+      become: true
       notify: Reinicia servidor
   handlers:
     - name: Reinicia servidor
       reboot:
-      become: yes
+      become: true
 
 - name: Install geci-testmake using ad hoc installation
   hosts: development
@@ -112,8 +112,9 @@
       git:
         repo: https://github.com/IslasGECI/testmake.git
         dest: "{{ ansible_facts.user_dir }}/testmake/"
-        clone: yes
-        update: yes
+        clone: true
+        update: true
+        version: develop
     - name: Run 'install' testmake
       make:
         chdir: "{{ ansible_facts.user_dir }}/testmake"
@@ -125,11 +126,12 @@
     - name: Configura huso horario
       timezone:
         name: America/Los_Angeles
-      become: yes
+      become: true
     - name: Copia configuración del Git
       copy:
         src: .config/.gitconfig
         dest: "{{ ansible_facts.user_dir }}/"
+        mode: u+rw,g+rw,o+r
 
 - name: Tests
   hosts: development

@@ -18,11 +18,12 @@
       ansible.posix.authorized_key:
         user: devarops
         state: present
-        key: https://github.com/devarops.keys  
+        key: https://github.com/devarops.keys
     - name: Clone dotfiles
       git:
         repo: https://github.com/devarops/dotfiles.git
         dest: "/home/devarops/dotfiles"
+        version: develop
     - name: Install dotfiles
       make:
         chdir: "/home/devarops/dotfiles"
@@ -34,7 +35,7 @@
       ansible.builtin.file:
         path: "/home/devarops"
         state: directory
-        recurse: yes
+        recurse: true
         owner: devarops
         group: devarops
 
@@ -62,6 +63,7 @@
       git:
         repo: https://github.com/nepito/dotfiles.git
         dest: "/home/nepo/dotfiles"
+        version: develop
     - name: Install dotfiles
       make:
         chdir: "/home/nepo/dotfiles"
@@ -73,6 +75,6 @@
       ansible.builtin.file:
         path: "/home/nepo"
         state: directory
-        recurse: yes
+        recurse: true
         owner: nepo
         group: nepo
