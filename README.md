@@ -33,8 +33,9 @@ Cada mañana para conectarte al servidor desde tu cliente liviano deberás de ha
 ```shel
 ssh-keygen -f "$HOME/.ssh/known_hosts" -R "islasgeci.dev"
 ssh-keyscan "islasgeci.dev" >> "$HOME/.ssh/known_hosts"
-scp -pr ~/.vault devserver:/home/$GITHUB_USERNAME/.vault
-ssh devserver
+export USUARIO=<Tu usuario del servidor>
+scp -pr ~/.vault $USUARIO@islasgeci.dev:/home/$USUARIO/.vault
+ssh -o ForwardAgent=yes $USUARIO@islasgeci.dev
 ```
 
 ## Usuarios
