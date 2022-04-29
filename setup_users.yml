@@ -1,28 +1,4 @@
 ---
-- name: Setup nepo
-  hosts: development
-  become: true
-  tasks:
-    - name: Create user
-      ansible.builtin.user:
-        name: nepo
-        groups:
-          - docker
-          - sudo
-        shell: "/bin/bash"
-        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
-    - name: Set authorized keys taken from url
-      ansible.posix.authorized_key:
-        user: nepo
-        state: present
-        key: https://github.com/nepito.keys
-    - name: Clone dotfiles
-      git:
-        repo: https://github.com/nepito/dotfiles.git
-        dest: "/home/nepo/dotfiles"
-    - name: Install dotfiles
-      make:
-        chdir: "/home/nepo/dotfiles"
 - name: Setup devarops
   hosts: development
   become: true
@@ -47,3 +23,28 @@
     - name: Install dotfiles
       make:
         chdir: "/home/devarops/dotfiles"
+
+- name: Setup nepo
+  hosts: development
+  become: true
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: nepo
+        groups:
+          - docker
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: nepo
+        state: present
+        key: https://github.com/nepito.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/nepito/dotfiles.git
+        dest: "/home/nepo/dotfiles"
+    - name: Install dotfiles
+      make:
+        chdir: "/home/nepo/dotfiles"
