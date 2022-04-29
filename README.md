@@ -2,13 +2,13 @@
 
 ## Autenticación mediante SSH
 
-1. En tu estación de trabajo crea tu clave SSH con: `ssh-keygen`
-1. Agrega la clave SSH pública[^ssh_pub] de tu estación de trabajo a:
+1. En tu cliente liviano crea tu clave SSH con: `ssh-keygen`
+1. Agrega la clave SSH pública[^ssh_pub] de tu cliente liviano a:
     - [Bitbucket](https://bitbucket.org/account/settings/ssh-keys/),
     - [DigitalOcean](https://cloud.digitalocean.com/account/security) y
     - [GitHub](https://github.com/settings/keys/)
 
-[^ssh_pub]: Copia el contenido del archivo `~/.ssh/id_rsa.pub` de tu estación de trabajo y pégalo en las aplicaciones indicadas
+[^ssh_pub]: Copia el contenido del archivo `~/.ssh/id_rsa.pub` de tu cliente liviano y pégalo en las aplicaciones indicadas
 
 ## En tu cliente liviano
 
