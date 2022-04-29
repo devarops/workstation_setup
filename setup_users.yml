@@ -2,6 +2,9 @@
 - name: Setup devarops
   hosts: development
   become: true
+  environment:
+    HOME: "/home/devarops"
+    USER: "devarops"
   tasks:
     - name: Create user
       ansible.builtin.user:
@@ -34,6 +37,9 @@
 - name: Setup nepo
   hosts: development
   become: true
+  environment:
+    HOME: "/home/nepo"
+    USER: "nepo"
   tasks:
     - name: Create user
       ansible.builtin.user:
