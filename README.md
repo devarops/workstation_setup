@@ -29,18 +29,18 @@ docker run \
     --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
     islasgeci/development_server_setup:latest make
 ```
-Cada mañana para conectarte al servidor desde tu cliente liviano deberás de hacer lo siguiente
+Cada mañana para conectarte al servidor desde tu cliente liviano deberás de hacer lo siguiente:
 ```shel
 ssh-keygen -f "$HOME/.ssh/known_hosts" -R "islasgeci.dev"
 ssh-keyscan "islasgeci.dev" >> "$HOME/.ssh/known_hosts"
-export USUARIO=<Tu usuario del servidor>
-scp -pr ~/.vault $USUARIO@islasgeci.dev:/home/$USUARIO/.vault
-ssh -o ForwardAgent=yes $USUARIO@islasgeci.dev
+export DEVELOPER=<Tu nombre de usuario del servidor>
+scp -pr ~/.vault $DEVELOPER@islasgeci.dev:/home/$DEVELOPER/.vault
+ssh -o ForwardAgent=yes $DEVELOPER@islasgeci.dev
 ```
 
 ## Usuarios
 
-Para configurar tu usuario en el servidor necesitas agregar tu repositorio `dotfiles`. Estas son las
+Para configurar tu usuario del servidor necesitas agregar tu repositorio `dotfiles`. Estas son las
 características del repositorio:
 1. Que el repositorio se llame `dotfiles`
 1. Que en la rama _develop_ tenga un `Makefile`
