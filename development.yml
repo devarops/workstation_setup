@@ -5,9 +5,7 @@
     - name: Actualiza paquetes del sistema operativo
       apt:
         update_cache: yes
-        upgrade: yes
       become: yes
-      notify: Reinicia servidor
     - name: Instala cURL
       apt:
         name: "curl"
