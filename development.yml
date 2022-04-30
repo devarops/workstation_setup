@@ -61,6 +61,11 @@
         name: "npm"
         state: present
       become: true
+    - name: Instala pipx
+      apt:
+        name: "pipx"
+        state: present
+      become: true
     - name: Instala pip
       apt:
         name: "python3-pip"
