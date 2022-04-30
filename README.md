@@ -3,6 +3,7 @@
 ## Autenticación mediante SSH
 
 1. En tu cliente liviano crea tu clave SSH con: `ssh-keygen`
+1. Agrega tu clave SSH al agente para hacer _forwarding_: `ssh-add ~/.ssh/id_rsa`
 1. Agrega la clave SSH pública[^ssh_pub] de tu cliente liviano a:
     - [Bitbucket](https://bitbucket.org/account/settings/ssh-keys/),
     - [DigitalOcean](https://cloud.digitalocean.com/account/security) y
