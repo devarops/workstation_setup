@@ -24,9 +24,7 @@ docker pull islasgeci/development_server_setup:latest
 export DO_PAT=<Token de DigitalOcean>
 docker run \
     --env DO_PAT \
-    --interactive \
     --rm \
-    --tty \
     --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
     islasgeci/development_server_setup:latest make
 ```
