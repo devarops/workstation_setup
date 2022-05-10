@@ -1,11 +1,11 @@
-devserver: init create_server know_host setup_server setup_users
+devserver: init create_server host_known setup_server setup_users
 
 .PHONY: \
 	create_server \
 	destroy_server \
 	devserver \
+	host_known \
 	init \
-	know_host \
 	linter \
 	setup_server \
 	setup_users
@@ -16,11 +16,11 @@ create_server:
 destroy_server:
 	cd src && terraform destroy -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
+host_known:
+	ssh-keyscan "islasgeci.dev" > "$${HOME}/.ssh/known_hosts"
+
 init:
 	cd src && terraform init
-
-know_host:
-	ssh-keyscan "islasgeci.dev" > "$${HOME}/.ssh/known_hosts"
 
 format:
 	cd src && terraform fmt
