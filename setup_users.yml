@@ -101,7 +101,7 @@
         key: https://github.com/mvillasante.keys
     - name: Clone dotfiles
       git:
-        repo: https://github.com/analislas/dotfiles.git
+        repo: https://github.com/mvillasante/dotfiles.git
         dest: "/home/mvb/dotfiles"
         version: develop
     - name: Install dotfiles
