@@ -16,6 +16,11 @@
         name: "docker.io"
         state: present
       become: true
+    - name: Instala Docker-compose
+      apt:
+        name: "docker-compose"
+        state: present
+      become: true
     - name: Instala exa
       apt:
         name: "exa"
