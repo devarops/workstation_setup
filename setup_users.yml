@@ -61,7 +61,7 @@
         key: https://github.com/MemoOlv.keys
     - name: Clone dotfiles
       git:
-        repo: https://github.com/analislas/dotfiles.git
+        repo: https://github.com/MemoOlv/dotfiles.git
         dest: "/home/memo/dotfiles"
         version: develop
     - name: Install dotfiles
