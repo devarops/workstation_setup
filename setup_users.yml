@@ -21,7 +21,7 @@
         key: https://github.com/nepito.keys
     - name: Clone dotfiles
       git:
-        repo: https://github.com/analislas/dotfiles.git
+        repo: https://github.com/nepito/dotfiles.git
         dest: "/home/nepo/dotfiles"
         version: develop
     - name: Install dotfiles
