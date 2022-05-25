@@ -11,6 +11,7 @@
         name: nepo
         groups:
           - docker
+          - share
           - sudo
         shell: "/bin/bash"
         password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
@@ -51,6 +52,7 @@
         name: memo
         groups:
           - docker
+          - share
           - sudo
         shell: "/bin/bash"
         password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
@@ -91,6 +93,7 @@
         name: mvb
         groups:
           - docker
+          - share
           - sudo
         shell: "/bin/bash"
         password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
@@ -131,6 +134,7 @@
         name: devarops
         groups:
           - docker
+          - share
           - sudo
         shell: "/bin/bash"
         password: "$6$islasgeci$oLvRdioyBDHDCav9XBFpL3KhbNAd2OVDJuYJ7j22x3QRz8BFY11zorW.8Xx6oD6mxkF0urOQBkcaL/V2YqsgI/"
