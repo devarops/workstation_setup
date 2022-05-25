@@ -10,6 +10,10 @@ devserver: init create_server host_known setup_server setup_users
 	setup_server \
 	setup_users
 
+clean:
+	rm --force --recursive src/.terraform
+	rm --force src/.terraform.lock.hcl
+
 create_server:
 	cd src && terraform apply -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
