@@ -125,7 +125,7 @@
       become: true
       notify: Reinicia servidor
   handlers:
-      - name: Reinicia servidor
+    - name: Reinicia servidor
       reboot:
       become: true
 
