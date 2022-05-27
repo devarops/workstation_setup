@@ -2,9 +2,18 @@
 - name: Install software using package managers
   hosts: development
   tasks:
+    - name: Ensure group "share" exists
+      group:
+        name: share
+        state: present
     - name: Actualiza paquetes del sistema operativo
       apt:
         update_cache: true
+      become: true
+    - name: Instala access control list
+      apt: 
+        name: "acl"
+        state: present
       become: true
     - name: Instala cURL
       apt:
@@ -91,6 +100,11 @@
         name: "tmux"
         state: present
       become: true
+    - name: Instala tree
+      apt:
+        name: "tree"
+        state: present
+      become: true
     - name: Instala ctags
       apt:
         name: "universal-ctags"
@@ -111,7 +125,7 @@
       become: true
       notify: Reinicia servidor
   handlers:
-    - name: Reinicia servidor
+      - name: Reinicia servidor
       reboot:
       become: true
 
@@ -137,11 +151,13 @@
       timezone:
         name: America/Los_Angeles
       become: true
-    - name: Copia configuración del Git
-      copy:
-        src: .config/.gitconfig
-        dest: "{{ ansible_facts.user_dir }}/"
-        mode: u+rw,g+rw,o+r
+    - name: Recursively change ownership of share directory
+      ansible.builtin.file:
+        path: "/tmp/share"
+        state: directory
+        recurse: true
+        group: share
+        mode: g+rw,o+rw
 
 - name: Tests
   hosts: development
@@ -150,3 +166,4 @@
       docker_container:
         name: hello-world
         image: hello-world
+  name: 
