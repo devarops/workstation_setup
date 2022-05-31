@@ -1,4 +1,4 @@
-devserver: init create_server host_known setup_server setup_users
+devserver: init create_server host_known sleep setup_server setup_users
 
 .PHONY: \
 	create_server \
@@ -8,7 +8,8 @@ devserver: init create_server host_known setup_server setup_users
 	init \
 	linter \
 	setup_server \
-	setup_users
+	setup_users \
+	sleep
 
 clean:
 	rm --force --recursive src/.terraform
@@ -38,3 +39,7 @@ setup_server:
 
 setup_users:
 	ansible-playbook setup_users.yml
+
+sleep:
+	sleep 100
+
