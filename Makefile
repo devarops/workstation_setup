@@ -41,5 +41,6 @@ setup_users:
 	ansible-playbook setup_users.yml
 
 sleep:
+	@echo "Waiting to avoid conflicts with APT. 😴 💤 😪"
 	sleep 100
 
