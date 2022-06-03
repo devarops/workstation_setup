@@ -157,7 +157,7 @@
         state: directory
         recurse: true
         group: share
-        mode: g+rw,o+rw
+        mode: g+rws,o+rw
 
 - name: Tests
   hosts: development
