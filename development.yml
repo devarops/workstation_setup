@@ -1,13 +1,13 @@
 ---
 - name: Install software using package managers
-  hosts: development
+  hosts: devservers
   tasks:
     - name: Actualiza paquetes del sistema operativo
       apt:
         update_cache: true
       become: true
     - name: Instala access control list
-      apt: 
+      apt:
         name: "acl"
         state: present
       become: true
@@ -126,7 +126,7 @@
       become: true
 
 - name: Install geci-testmake using ad hoc installation
-  hosts: development
+  hosts: devservers
   tasks:
     - name: Clone testmake repository
       git:
@@ -141,7 +141,7 @@
         target: install
 
 - name: Set system up
-  hosts: development
+  hosts: devservers
   tasks:
     - name: Configura huso horario
       timezone:
@@ -160,7 +160,7 @@
         mode: g+rws,o+rw
 
 - name: Tests
-  hosts: development
+  hosts: devservers
   tasks:
     - name: Prueba Docker
       docker_container:

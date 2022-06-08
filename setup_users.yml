@@ -1,6 +1,6 @@
 ---
 - name: Setup nepo
-  hosts: development
+  hosts: devservers
   become: true
   environment:
     HOME: "/home/nepo"
@@ -41,7 +41,7 @@
         group: nepo
 
 - name: Setup memo
-  hosts: development
+  hosts: devservers
   become: true
   environment:
     HOME: "/home/memo"
@@ -82,7 +82,7 @@
         group: memo
 
 - name: Setup mvb
-  hosts: development
+  hosts: devservers
   become: true
   environment:
     HOME: "/home/mvb"
@@ -123,7 +123,7 @@
         group: mvb
 
 - name: Setup devarops
-  hosts: development
+  hosts: devservers
   become: true
   environment:
     HOME: "/home/devarops"
