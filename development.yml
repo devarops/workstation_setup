@@ -155,7 +155,7 @@
       ansible.builtin.file:
         path: "/tmp/share"
         state: directory
-        recurse: true
+        recurse: yes
         group: share
         mode: g+rws,o+rw
 
