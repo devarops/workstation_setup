@@ -1,2 +1,2 @@
-[development]
+[devservers]
 islasgeci.dev ansible_user=root
