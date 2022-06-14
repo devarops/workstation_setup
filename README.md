@@ -24,11 +24,7 @@ Para crear el servidor de desarrollo debemos ejecutar lo siguiente:
 sudo apt update && sudo apt install --yes docker.io
 docker pull islasgeci/development_server_setup:latest
 export DO_PAT=<Token de DigitalOcean>
-docker run \
-    --env DO_PAT \
-    --rm \
-    --volume ${HOME}/.ssh/id_rsa:/root/.ssh/id_rsa \
-    islasgeci/development_server_setup:latest make
+docker-compose run islasgeci
 ```
 Cada mañana para conectarte al servidor desde tu cliente liviano deberás de hacer lo siguiente:
 ```shel

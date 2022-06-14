@@ -1,6 +1,129 @@
 ---
+- name: Setup nepo
+  hosts: devservers
+  become: true
+  environment:
+    HOME: "/home/nepo"
+    USER: "nepo"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: nepo
+        groups:
+          - docker
+          - share
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: nepo
+        state: present
+        key: https://github.com/nepito.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/nepito/dotfiles.git
+        dest: "/home/nepo/dotfiles"
+        version: develop
+    - name: Install dotfiles
+      make:
+        chdir: "/home/nepo/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/nepo/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/nepo"
+        state: directory
+        recurse: true
+        owner: nepo
+        group: nepo
+
+- name: Setup memo
+  hosts: devservers
+  become: true
+  environment:
+    HOME: "/home/memo"
+    USER: "memo"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: memo
+        groups:
+          - docker
+          - share
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: memo
+        state: present
+        key: https://github.com/MemoOlv.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/MemoOlv/dotfiles.git
+        dest: "/home/memo/dotfiles"
+        version: develop
+    - name: Install dotfiles
+      make:
+        chdir: "/home/memo/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/memo/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/memo"
+        state: directory
+        recurse: true
+        owner: memo
+        group: memo
+
+- name: Setup mvb
+  hosts: devservers
+  become: true
+  environment:
+    HOME: "/home/mvb"
+    USER: "mvb"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: mvb
+        groups:
+          - docker
+          - share
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: mvb
+        state: present
+        key: https://github.com/mvillasante.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/mvillasante/dotfiles.git
+        dest: "/home/mvb/dotfiles"
+        version: develop
+    - name: Install dotfiles
+      make:
+        chdir: "/home/mvb/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/mvb/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/mvb"
+        state: directory
+        recurse: true
+        owner: mvb
+        group: mvb
+
 - name: Setup devarops
-  hosts: development
+  hosts: devservers
   become: true
   environment:
     HOME: "/home/devarops"
@@ -11,6 +134,7 @@
         name: devarops
         groups:
           - docker
+          - share
           - sudo
         shell: "/bin/bash"
         password: "$6$islasgeci$oLvRdioyBDHDCav9XBFpL3KhbNAd2OVDJuYJ7j22x3QRz8BFY11zorW.8Xx6oD6mxkF0urOQBkcaL/V2YqsgI/"
@@ -38,123 +162,3 @@
         recurse: true
         owner: devarops
         group: devarops
-
-- name: Setup nepo
-  hosts: development
-  become: true
-  environment:
-    HOME: "/home/nepo"
-    USER: "nepo"
-  tasks:
-    - name: Create user
-      ansible.builtin.user:
-        name: nepo
-        groups:
-          - docker
-          - sudo
-        shell: "/bin/bash"
-        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
-    - name: Set authorized keys taken from url
-      ansible.posix.authorized_key:
-        user: nepo
-        state: present
-        key: https://github.com/nepito.keys
-    - name: Clone dotfiles
-      git:
-        repo: https://github.com/analislas/dotfiles.git
-        dest: "/home/nepo/dotfiles"
-        version: develop
-    - name: Install dotfiles
-      make:
-        chdir: "/home/nepo/dotfiles"
-    - name: Agrega las credenciales al perfil del usuario
-      ansible.builtin.lineinfile:
-        path: "/home/nepo/.profile"
-        line: source $HOME/.vault/.secrets
-    - name: Recursively change ownership of home directory
-      ansible.builtin.file:
-        path: "/home/nepo"
-        state: directory
-        recurse: true
-        owner: nepo
-        group: nepo
-
-- name: Setup memo
-  hosts: development
-  become: true
-  environment:
-    HOME: "/home/memo"
-    USER: "memo"
-  tasks:
-    - name: Create user
-      ansible.builtin.user:
-        name: memo
-        groups:
-          - docker
-          - sudo
-        shell: "/bin/bash"
-        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
-    - name: Set authorized keys taken from url
-      ansible.posix.authorized_key:
-        user: memo
-        state: present
-        key: https://github.com/MemoOlv.keys
-    - name: Clone dotfiles
-      git:
-        repo: https://github.com/analislas/dotfiles.git
-        dest: "/home/memo/dotfiles"
-        version: develop
-    - name: Install dotfiles
-      make:
-        chdir: "/home/memo/dotfiles"
-    - name: Agrega las credenciales al perfil del usuario
-      ansible.builtin.lineinfile:
-        path: "/home/memo/.profile"
-        line: source $HOME/.vault/.secrets
-    - name: Recursively change ownership of home directory
-      ansible.builtin.file:
-        path: "/home/memo"
-        state: directory
-        recurse: true
-        owner: memo
-        group: memo
-
-- name: Setup mvb
-  hosts: development
-  become: true
-  environment:
-    HOME: "/home/mvb"
-    USER: "mvb"
-  tasks:
-    - name: Create user
-      ansible.builtin.user:
-        name: mvb
-        groups:
-          - docker
-          - sudo
-        shell: "/bin/bash"
-        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
-    - name: Set authorized keys taken from url
-      ansible.posix.authorized_key:
-        user: mvb
-        state: present
-        key: https://github.com/mvillasante.keys
-    - name: Clone dotfiles
-      git:
-        repo: https://github.com/analislas/dotfiles.git
-        dest: "/home/mvb/dotfiles"
-        version: develop
-    - name: Install dotfiles
-      make:
-        chdir: "/home/mvb/dotfiles"
-    - name: Agrega las credenciales al perfil del usuario
-      ansible.builtin.lineinfile:
-        path: "/home/mvb/.profile"
-        line: source $HOME/.vault/.secrets
-    - name: Recursively change ownership of home directory
-      ansible.builtin.file:
-        path: "/home/mvb"
-        state: directory
-        recurse: true
-        owner: mvb
-        group: mvb
