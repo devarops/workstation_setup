@@ -18,7 +18,7 @@ resource "digitalocean_droplet" "devserver" {
   }
 }
 
-resource "digitalocean_floating_ip_assignment" "foobar" {
+resource "digitalocean_floating_ip_assignment" "devip" {
   ip_address = "146.190.1.89"
   droplet_id = digitalocean_droplet.devserver.id
 }
