@@ -1,12 +1,13 @@
-devserver: init create_server host_known sleep setup_server setup_users
+all: init create_server host_known sleep setup_server setup_users
 
 .PHONY: \
+	all \
+	check \
 	create_server \
 	destroy_server \
-	devserver \
+	format \
 	host_known \
 	init \
-	linter \
 	setup_server \
 	setup_users \
 	sleep
@@ -14,6 +15,7 @@ devserver: init create_server host_known sleep setup_server setup_users
 clean:
 	rm --force --recursive src/.terraform
 	rm --force src/.terraform.lock.hcl
+	rm --force src/terraform.tfstate*
 
 create_server:
 	cd src && terraform apply -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
@@ -43,4 +45,3 @@ setup_users:
 sleep:
 	@echo "Waiting to avoid conflicts with APT. 😴 💤 😪"
 	sleep 100
-
