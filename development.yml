@@ -1,0 +1,168 @@
+---
+- name: Install software using package managers
+  hosts: devservers
+  tasks:
+    - name: Actualiza paquetes del sistema operativo
+      apt:
+        update_cache: true
+      become: true
+    - name: Instala access control list
+      apt:
+        name: "acl"
+        state: present
+      become: true
+    - name: Instala cURL
+      apt:
+        name: "curl"
+        state: present
+      become: true
+    - name: Instala Docker
+      apt:
+        name: "docker.io"
+        state: present
+      become: true
+    - name: Instala Docker-compose
+      apt:
+        name: "docker-compose"
+        state: present
+      become: true
+    - name: Instala exa
+      apt:
+        name: "exa"
+        state: present
+      become: true
+    - name: Instala fd
+      apt:
+        name: "fd-find"
+        state: present
+      become: true
+    - name: Instala Powerline fonts
+      apt:
+        name: "fonts-powerline"
+        state: present
+      become: true
+    - name: Instala Git
+      apt:
+        name: "git"
+        state: present
+      become: true
+    - name: Instala Go
+      apt:
+        name: "golang-go"
+        state: present
+      become: true
+    - name: Instala Make
+      apt:
+        name: "make"
+        state: present
+      become: true
+    - name: Instala Neofetch
+      apt:
+        name: "neofetch"
+        state: present
+      become: true
+    - name: Instala Neovim
+      apt:
+        name: "neovim"
+        state: present
+      become: true
+    - name: Instala Node Package Manager
+      apt:
+        name: "npm"
+        state: present
+      become: true
+    - name: Instala pipx
+      apt:
+        name: "pipx"
+        state: present
+      become: true
+    - name: Instala pip
+      apt:
+        name: "python3-pip"
+        state: present
+      become: true
+    - name: Instala ripgrep
+      apt:
+        name: "ripgrep"
+        state: present
+      become: true
+    - name: Instala ShellCheck
+      apt:
+        name: "shellcheck"
+        state: present
+      become: true
+    - name: Instala tmux
+      apt:
+        name: "tmux"
+        state: present
+      become: true
+    - name: Instala tree
+      apt:
+        name: "tree"
+        state: present
+      become: true
+    - name: Instala ctags
+      apt:
+        name: "universal-ctags"
+        state: present
+      become: true
+    - name: Instala Docker SDK para Python
+      pip:
+        name: docker
+      notify: Reinicia servidor
+    - name: Instala Powerline shell
+      pip:
+        name: powerline-shell
+    - name: Agrega '{{ ansible_user_id }}' al grupo docker
+      user:
+        name: "{{ ansible_user_id }}"
+        groups: docker
+        append: true
+      become: true
+      notify: Reinicia servidor
+  handlers:
+    - name: Reinicia servidor
+      reboot:
+      become: true
+
+- name: Install geci-testmake using ad hoc installation
+  hosts: devservers
+  tasks:
+    - name: Clone testmake repository
+      git:
+        repo: https://github.com/IslasGECI/testmake.git
+        dest: "{{ ansible_facts.user_dir }}/testmake/"
+        clone: true
+        update: true
+        version: develop
+    - name: Run 'install' testmake
+      make:
+        chdir: "{{ ansible_facts.user_dir }}/testmake"
+        target: install
+
+- name: Set system up
+  hosts: devservers
+  tasks:
+    - name: Configura huso horario
+      timezone:
+        name: America/Los_Angeles
+      become: true
+    - name: Ensure group "share" exists
+      group:
+        name: share
+        state: present
+    - name: Recursively change ownership of share directory
+      ansible.builtin.file:
+        path: "/tmp/share"
+        state: directory
+        recurse: true
+        group: share
+        mode: g+rws
+
+- name: Tests
+  hosts: devservers
+  tasks:
+    - name: Prueba Docker
+      docker_container:
+        name: hello-world
+        image: hello-world
