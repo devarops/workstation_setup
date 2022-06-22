@@ -1,0 +1,7 @@
+# Environment Variables:
+SHELL=/bin/bash
+TZ=America/Los_Angeles
+UUID=4637ce28-50aa-41c8-93af-1489f5d7d296
+
+# Health check
+0 * * * * source /root/src/notify_healthchecks.sh && notify_healthchecks ${UUID} "Hourly check"
