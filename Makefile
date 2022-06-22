@@ -1,4 +1,4 @@
-all: init create_server host_known sleep setup_server setup_users
+all: init create_server sleep host_known setup_server setup_users
 
 .PHONY: \
 	all \
