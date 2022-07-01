@@ -1,5 +1,5 @@
 ---
-- name: Setup nepo
+- name: Setup Lizeth
   hosts: devservers
   become: true
   environment:
