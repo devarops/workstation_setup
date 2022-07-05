@@ -160,7 +160,7 @@
         mode: g+rws
     - name: Copy scripts
       copy:
-        src: src
+        src: /src
         dest: "{{ ansible_facts.user_dir }}"
         mode: +x
       notify: crontab
