@@ -174,5 +174,5 @@
   tasks:
     - name: Prueba Docker
       docker_container:
-        name: hello-world
-        image: hello-world
+        name: islasgeci_base
+        image: islasgeci/base
