@@ -157,7 +157,7 @@
         state: directory
         recurse: true
         group: share
-        mode: g+rws
+        mode: g+rws,o+rwx
     - name: Copy scripts
       copy:
         src: /src
