@@ -7,7 +7,8 @@ resource "digitalocean_droplet" "devserver" {
     data.digitalocean_ssh_key.evaro-desktop.id,
     data.digitalocean_ssh_key.evaro-laptop.id,
     data.digitalocean_ssh_key.nepo-desktop.id,
-    data.digitalocean_ssh_key.nepo-laptop.id
+    data.digitalocean_ssh_key.nepo-laptop.id,
+    data.digitalocean_ssh_key.provisioner.id
   ]
   connection {
     host        = self.ipv4_address

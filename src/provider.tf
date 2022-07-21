@@ -29,3 +29,7 @@ data "digitalocean_ssh_key" "nepo-desktop" {
 data "digitalocean_ssh_key" "nepo-laptop" {
   name = "nepo@petrel"
 }
+
+data "digitalocean_ssh_key" "provisioner" {
+  name = "provisioner"
+}
