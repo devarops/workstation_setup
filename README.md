@@ -44,3 +44,10 @@ características del repositorio:
 1. Que el `Makefile` tenga al menos un _target_
 
 Actualmente usamos [la configuración por defecto del analislas](https://github.com/analislas/dotfiles).
+
+## Para probar los cambios
+
+- Construimos la imagen en la rama en la que hicimos los cambios que queremos probar
+- La mandamos al Docker Hub
+- La mañana siguiente el provisionador bajará la imagen _latest_
+- Si todo sale bien, ya podremos cerrar la rama
