@@ -15,7 +15,7 @@ provider "digitalocean" {
 }
 
 data "digitalocean_ssh_key" "evaro-desktop" {
-  name = "evaro@pelicano"
+  name = "evaro@saltapared"
 }
 
 data "digitalocean_ssh_key" "evaro-laptop" {
