@@ -33,15 +33,15 @@ format:
 	cd src && terraform fmt
 
 check:
-	ansible-lint src_ansible/development.yml src_ansible/setup_users.yml src_ansible/add_user_lizeth.yml
+	ansible-lint ansible/development.yml ansible/setup_users.yml ansible/add_user_lizeth.yml
 	cd src && terraform fmt -check
 
 setup_server:
-	ansible-playbook src_ansible/development.yml
+	ansible-playbook ansible/development.yml
 
 setup_users:
-	ansible-playbook src_ansible/setup_users.yml
-	ansible-playbook src_ansible/add_user_lizeth.yml
+	ansible-playbook ansible/setup_users.yml
+	ansible-playbook ansible/add_user_lizeth.yml
 
 sleep:
 	@echo "Waiting to avoid conflicts with APT. 😴 💤 😪"
