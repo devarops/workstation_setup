@@ -66,11 +66,6 @@
         name: "neovim"
         state: present
       become: true
-    - name: Instala Node Package Manager
-      apt:
-        name: "npm"
-        state: present
-      become: true
     - name: Instala pipx
       apt:
         name: "pipx"
