@@ -108,6 +108,9 @@
     - name: Instala Powerline shell
       pip:
         name: powerline-shell
+    - name: Install Node.js
+      community.general.snap:
+        name: node
     - name: Agrega '{{ ansible_user_id }}' al grupo docker
       user:
         name: "{{ ansible_user_id }}"
