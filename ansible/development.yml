@@ -111,6 +111,7 @@
     - name: Install Node.js
       community.general.snap:
         name: node
+        classic: true
     - name: Agrega '{{ ansible_user_id }}' al grupo docker
       user:
         name: "{{ ansible_user_id }}"
