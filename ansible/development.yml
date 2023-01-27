@@ -76,6 +76,11 @@
         name: "python3-pip"
         state: present
       become: true
+    - name: Instala R
+      apt:
+        name: "r-base"
+        state: present
+      become: true
     - name: Instala ripgrep
       apt:
         name: "ripgrep"
