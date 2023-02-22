@@ -1,4 +1,4 @@
-all: init create_server sleep host_known setup_server setup_users
+all: init create_server sleep host_known setup_server setup_users setup_guests
 
 .PHONY: \
 	all \
@@ -8,6 +8,7 @@ all: init create_server sleep host_known setup_server setup_users
 	format \
 	host_known \
 	init \
+	setup_guests \
 	setup_server \
 	setup_users \
 	sleep
@@ -35,6 +36,9 @@ format:
 check:
 	ansible-lint ansible/development.yml ansible/setup_users.yml
 	cd src && terraform fmt -check
+
+setup_guests:
+	ansible-playbook ansible/add_user_ybedolla.yml
 
 setup_server:
 	ansible-playbook ansible/development.yml
