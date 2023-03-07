@@ -51,6 +51,11 @@
         name: "golang-go"
         state: present
       become: true
+    - name: Instala jq
+      apt:
+        name: "jq"
+        state: present
+      become: true
     - name: Instala Make
       apt:
         name: "make"
