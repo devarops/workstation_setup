@@ -1,0 +1,33 @@
+---
+- name: Setup MaritzaB
+  hosts: devservers
+  become: true
+  environment:
+    HOME: "/home/maritzab"
+    USER: "maritzab"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: maritzab
+        groups:
+          - docker
+          - share
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: maritzab
+        state: present
+        key: https://github.com/MaritzaB.keys
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/maritzab/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/maritzab"
+        state: directory
+        recurse: true
+        owner: maritzab
+        group: maritzab
