@@ -20,6 +20,13 @@
         user: ybedolla
         state: present
         key: https://github.com/ybedolla.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/ybedolla/dotfiles.git
+        dest: "/home/ybedolla/dotfiles"
+    - name: Install dotfiles
+      make:
+        chdir: "/home/ybedolla/dotfiles"
     - name: Agrega las credenciales al perfil del usuario
       ansible.builtin.lineinfile:
         path: "/home/ybedolla/.profile"
