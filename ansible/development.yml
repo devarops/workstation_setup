@@ -147,7 +147,8 @@
     - name: Run 'install' analislas dotfiles
       make:
         chdir: "{{ ansible_facts.user_dir }}/dotfiles"
-        target: install      
+        target: install
+      become: true
 
 - name: Install geci-testmake using ad hoc installation
   hosts: devservers
