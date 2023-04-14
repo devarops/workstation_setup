@@ -1,0 +1,40 @@
+---
+- name: Setup Simon
+  hosts: devservers
+  become: true
+  environment:
+    HOME: "/home/siduartep"
+    USER: "siduartep"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: siduartep
+        groups:
+          - docker
+          - share
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: siduartep
+        state: present
+        key: https://github.com/siduartep.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/siduartep/dotfiles.git
+        dest: "/home/siduartep/dotfiles"
+    - name: Install dotfiles
+      make:
+        chdir: "/home/siduartep/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/siduartep/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/siduartep"
+        state: directory
+        recurse: true
+        owner: siduartep
+        group: siduartep
