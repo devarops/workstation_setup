@@ -40,6 +40,7 @@ check:
 setup_guests:
 	ansible-playbook ansible/add_user_ybedolla.yml
 	ansible-playbook ansible/add_user_maritzab.yml
+	ansible-playbook ansible/add_user_siduartep.yml
 
 setup_server:
 	ansible-playbook ansible/development.yml
