@@ -1,0 +1,40 @@
+---
+- name: Setup Sandy
+  hosts: devservers
+  become: true
+  environment:
+    HOME: "/home/sandycc25"
+    USER: "sandycc25"
+  tasks:
+    - name: Create user
+      ansible.builtin.user:
+        name: sandycc25
+        groups:
+          - docker
+          - share
+          - sudo
+        shell: "/bin/bash"
+        password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
+    - name: Set authorized keys taken from url
+      ansible.posix.authorized_key:
+        user: sandycc25
+        state: present
+        key: https://github.com/Sandycc25.keys
+    - name: Clone dotfiles
+      git:
+        repo: https://github.com/Sandycc25/dotfiles.git
+        dest: "/home/sandycc25/dotfiles"
+    - name: Install dotfiles
+      make:
+        chdir: "/home/sandycc25/dotfiles"
+    - name: Agrega las credenciales al perfil del usuario
+      ansible.builtin.lineinfile:
+        path: "/home/sandycc25/.profile"
+        line: source $HOME/.vault/.secrets
+    - name: Recursively change ownership of home directory
+      ansible.builtin.file:
+        path: "/home/sandycc25"
+        state: directory
+        recurse: true
+        owner: sandycc25
+        group: sandycc25
