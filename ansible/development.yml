@@ -1,131 +1,54 @@
 ---
 - name: Install software using package managers
-  hosts: devservers
+  hosts: inspector
   tasks:
-    - name: Actualiza paquetes del sistema operativo
+    - name: Update system
       apt:
         update_cache: true
       become: true
-    - name: Instala access control list
-      apt:
-        name: "acl"
-        state: present
-      become: true
-    - name: Instala cURL
+    - name: Install cURL
       apt:
         name: "curl"
         state: present
       become: true
-    - name: Instala Docker
+    - name: Install Docker
       apt:
         name: "docker.io"
         state: present
       become: true
-    - name: Instala Docker-compose
+    - name: Install Docker-compose
       apt:
         name: "docker-compose"
         state: present
       become: true
-    - name: Instala exa
-      apt:
-        name: "exa"
-        state: present
-      become: true
-    - name: Instala fd
-      apt:
-        name: "fd-find"
-        state: present
-      become: true
-    - name: Instala Powerline fonts
-      apt:
-        name: "fonts-powerline"
-        state: present
-      become: true
-    - name: Instala Git
+    - name: Install Git
       apt:
         name: "git"
         state: present
       become: true
-    - name: Instala Go
-      apt:
-        name: "golang-go"
-        state: present
-      become: true
-    - name: Instala jq
-      apt:
-        name: "jq"
-        state: present
-      become: true
-    - name: Instala Make
+    - name: Install Make
       apt:
         name: "make"
         state: present
       become: true
-    - name: Instala Neofetch
-      apt:
-        name: "neofetch"
-        state: present
-      become: true
-    - name: Instala pipx
-      apt:
-        name: "pipx"
-        state: present
-      become: true
-    - name: Instala pip
+    - name: Install pip
       apt:
         name: "python3-pip"
         state: present
       become: true
-    - name: Instala R
-      apt:
-        name: "r-base"
-        state: present
-      become: true
-    - name: Instala ripgrep
-      apt:
-        name: "ripgrep"
-        state: present
-      become: true
-    - name: Instala ShellCheck
-      apt:
-        name: "shellcheck"
-        state: present
-      become: true
-    - name: Instala tmux
-      apt:
-        name: "tmux"
-        state: present
-      become: true
-    - name: Instala tree
-      apt:
-        name: "tree"
-        state: present
-      become: true
-    - name: Instala ctags
-      apt:
-        name: "universal-ctags"
-        state: present
-      become: true
-    - name: Instala Docker SDK para Python
+    - name: Install Docker SDK for Python
       pip:
         name: docker
-      notify: Reinicia servidor
-    - name: Instala Powerline shell
-      pip:
-        name: powerline-shell
-    - name: Install Node.js
-      community.general.snap:
-        name: node
-        classic: true
-    - name: Agrega '{{ ansible_user_id }}' al grupo docker
+      notify: Restart server
+    - name: Add '{{ ansible_user_id }}' to docker group
       user:
         name: "{{ ansible_user_id }}"
         groups: docker
         append: true
       become: true
-      notify: Reinicia servidor
+      notify: Restart server
   handlers:
-    - name: Reinicia servidor
+    - name: Restart server
       reboot:
       become: true
 
