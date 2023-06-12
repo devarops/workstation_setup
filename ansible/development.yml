@@ -1,6 +1,6 @@
 ---
 - name: Install software using package managers
-  hosts: inspector
+  hosts: devservers
   tasks:
     - name: Update system
       apt:
