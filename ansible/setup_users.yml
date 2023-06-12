@@ -28,6 +28,7 @@
     - name: Install dotfiles
       make:
         chdir: "/home/devarops/dotfiles"
+        target: install
     - name: Agrega las credenciales al perfil del usuario
       ansible.builtin.lineinfile:
         path: "/home/devarops/.profile"
