@@ -43,7 +43,7 @@ características del repositorio:
 1. Que en la rama _develop_ tenga un `Makefile`
 1. Que el `Makefile` tenga al menos un _target_
 
-Actualmente usamos [la configuración por defecto del analislas](https://github.com/analislas/dotfiles).
+Actualmente usamos [la configuración por defecto del equipo](https://github.com/IslasGECI/dotfiles).
 
 ## Para probar los cambios
 
