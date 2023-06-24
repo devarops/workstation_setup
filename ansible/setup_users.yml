@@ -38,6 +38,7 @@
     - name: Install dotfiles
       git:
         repo: "/home/{{ item.name }}/dotfiles.git"
+        version: HEAD
         work_tree: "/home/{{ item.name }}"
         force: true
       loop: "{{ users }}"
