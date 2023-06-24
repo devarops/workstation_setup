@@ -31,14 +31,12 @@
     - name: Clone dotfiles
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
-        dest: "/home/{{ item.name }}/dotfiles"
-        version: develop
+        dest: "/home/{{ item.name }}/dotfiles.git"
+        bare: yes
       loop: "{{ users }}"
 
     - name: Install dotfiles
-      make:
-        chdir: "/home/{{ item.name }}/dotfiles"
-        target: install
+      command: "git --git-dir=/home/{{ item.name }}/dotfiles.git --work-tree=/home/{{ item.name }} checkout"
       loop: "{{ users }}"
 
     - name: Add credentials to user profile
