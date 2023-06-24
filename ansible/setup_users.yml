@@ -31,6 +31,7 @@
     - name: Clone dotfiles
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
+        version: develop
         dest: "/home/{{ item.name }}/dotfiles.git"
         bare: true
       loop: "{{ users }}"
@@ -38,7 +39,7 @@
     - name: Install dotfiles
       git:
         repo: "/home/{{ item.name }}/dotfiles.git"
-        version: HEAD
+        version: develop
         work_tree: "/home/{{ item.name }}"
         force: true
       loop: "{{ users }}"
