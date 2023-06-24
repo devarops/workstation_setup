@@ -32,15 +32,8 @@
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
         version: develop
-        dest: "/home/{{ item.name }}/dotfiles.git"
-        bare: true
-      loop: "{{ users }}"
-
-    - name: Install dotfiles
-      git:
-        repo: "/home/{{ item.name }}/dotfiles.git"
-        version: develop
-        work_tree: "/home/{{ item.name }}"
+        dest: "/home/{{ item.name }}"
+        depth: 1
         force: true
       loop: "{{ users }}"
 
