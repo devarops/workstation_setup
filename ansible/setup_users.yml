@@ -44,7 +44,7 @@
     - name: Add credentials to user profile
       ansible.builtin.lineinfile:
         path: "/home/{{ item.name }}/.profile"
-        line: "source $HOME/.vault/.secrets"
+        line: "source /home/{{ item.name }}/.vault/.secrets"
       loop: "{{ users }}"
 
     - name: Recursively change ownership of home directory
