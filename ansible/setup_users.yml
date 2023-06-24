@@ -36,7 +36,10 @@
       loop: "{{ users }}"
 
     - name: Install dotfiles
-      command: "git --git-dir=/home/{{ item.name }}/dotfiles.git --work-tree=/home/{{ item.name }} checkout"
+      git:
+        repo: "/home/{{ item.name }}/dotfiles.git"
+        work_tree: "/home/{{ item.name }}"
+        force: yes
       loop: "{{ users }}"
 
     - name: Add credentials to user profile
