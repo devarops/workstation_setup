@@ -49,6 +49,12 @@
         line: "source /home/{{ item.name }}/.vault/.secrets"
       loop: "{{ users }}"
 
+    - name: Start session in the development environment
+      ansible.builtin.lineinfile:
+        path: "/home/{{ item.name }}/.profile"
+        line: "nix develop 'github:IslasGECI/pde'"
+      loop: "{{ users }}"
+
     - name: Recursively change ownership of home directory
       ansible.builtin.file:
         path: "/home/{{ item.name }}"
