@@ -20,33 +20,33 @@
         shell: "/bin/bash"
         password: "$6$islasgeci$uMZ4ssQEWitFBBnkTDrBkDV0LSsDK71p0ZyzN0R/vas3rLNpGlyr5O/mb6VtVfOhWy9ufcz/bILMpZ5DvbGwn1"
       loop: "{{ users }}"
-    
+
     - name: Set authorized keys taken from URL
       ansible.posix.authorized_key:
         user: "{{ item.name }}"
         state: present
         key: "https://github.com/{{ item.github_username }}.keys"
       loop: "{{ users }}"
-    
+
     - name: Clone dotfiles
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
         dest: "/home/{{ item.name }}/dotfiles"
         version: develop
       loop: "{{ users }}"
-    
+
     - name: Install dotfiles
       make:
         chdir: "/home/{{ item.name }}/dotfiles"
         target: install
       loop: "{{ users }}"
-    
+
     - name: Add credentials to user profile
       ansible.builtin.lineinfile:
         path: "/home/{{ item.name }}/.profile"
         line: "source $HOME/.vault/.secrets"
       loop: "{{ users }}"
-    
+
     - name: Recursively change ownership of home directory
       ansible.builtin.file:
         path: "/home/{{ item.name }}"
