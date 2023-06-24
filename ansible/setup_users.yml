@@ -32,9 +32,14 @@
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
         version: develop
-        dest: "/home/{{ item.name }}"
+        dest: "/home/{{ item.name }}/dotfiles"
         depth: 1
-        force: true
+      loop: "{{ users }}"
+
+    - name: Install dotfiles
+      copy:
+        src: "/home/{{ item.name }}/dotfiles/"
+        dest: "/home/{{ item.name }}/"
       loop: "{{ users }}"
 
     - name: Add credentials to user profile
