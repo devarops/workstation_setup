@@ -32,14 +32,14 @@
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
         dest: "/home/{{ item.name }}/dotfiles.git"
-        bare: yes
+        bare: true
       loop: "{{ users }}"
 
     - name: Install dotfiles
       git:
         repo: "/home/{{ item.name }}/dotfiles.git"
         work_tree: "/home/{{ item.name }}"
-        force: yes
+        force: true
       loop: "{{ users }}"
 
     - name: Add credentials to user profile
