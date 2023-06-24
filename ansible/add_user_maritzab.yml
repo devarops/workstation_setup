@@ -1,6 +1,6 @@
 ---
 - name: Setup MaritzaB
-  hosts: devservers
+  hosts: devserver
   become: true
   environment:
     HOME: "/home/maritzab"

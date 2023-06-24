@@ -1,6 +1,6 @@
 ---
 - name: Install software using package managers
-  hosts: devservers
+  hosts: devserver
   tasks:
     - name: Update system
       apt:
@@ -53,7 +53,7 @@
       become: true
 
 - name: Install IslasGECI dotfiles
-  hosts: devservers
+  hosts: devserver
   tasks:
     - name: Clone IslasGECI dotfiles
       git:
@@ -69,7 +69,7 @@
       become: true
 
 - name: Install geci-testmake using ad hoc installation
-  hosts: devservers
+  hosts: devserver
   tasks:
     - name: Clone testmake repository
       git:
@@ -84,7 +84,7 @@
         target: install
 
 - name: Set system up
-  hosts: devservers
+  hosts: devserver
   tasks:
     - name: Configura huso horario
       timezone:
@@ -113,7 +113,7 @@
       become: true
 
 - name: Tests
-  hosts: devservers
+  hosts: devserver
   tasks:
     - name: Prueba Docker
       docker_container:

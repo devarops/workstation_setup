@@ -1,6 +1,6 @@
 ---
 - name: Setup Simon
-  hosts: devservers
+  hosts: devserver
   become: true
   environment:
     HOME: "/home/siduartep"

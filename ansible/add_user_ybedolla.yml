@@ -1,6 +1,6 @@
 ---
 - name: Setup Yuliana
-  hosts: devservers
+  hosts: devserver
   become: true
   environment:
     HOME: "/home/ybedolla"
