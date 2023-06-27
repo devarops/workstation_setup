@@ -12,6 +12,8 @@
         github_username: MemoOlv
       - name: mvb
         github_username: mvillasante
+      - name: ybedolla
+        github_username: ybedolla
   tasks:
     - name: Create users
       ansible.builtin.user:
