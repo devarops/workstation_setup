@@ -8,12 +8,16 @@
         github_username: devarops
       - name: nepo
         github_username: nepito
-      - name: memo
-        github_username: MemoOlv
       - name: mvb
         github_username: mvillasante
+      - name: memo
+        github_username: MemoOlv
       - name: ybedolla
         github_username: ybedolla
+      - name: sandycc25
+        github_username: Sandycc25
+      - name: siduartep
+        github_username: siduartep
   tasks:
     - name: Create users
       ansible.builtin.user:
