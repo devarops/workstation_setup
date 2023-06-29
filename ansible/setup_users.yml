@@ -37,7 +37,6 @@
     - name: Clone dotfiles
       git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
-        version: develop
         dest: "/home/{{ item.name }}/dotfiles"
         depth: 1
       loop: "{{ users }}"
