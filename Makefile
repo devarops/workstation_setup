@@ -37,9 +37,6 @@ check:
 	ansible-lint ansible/development.yml ansible/setup_users.yml
 	cd src && terraform fmt -check
 
-setup_guests:
-	ansible-playbook ansible/add_user_siduartep.yml
-
 setup_server:
 	ansible-playbook ansible/development.yml
 
