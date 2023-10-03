@@ -1,25 +1,76 @@
-resource "digitalocean_droplet" "devserver" {
-  image  = "ubuntu-22-04-x64"
-  name   = "devserver"
-  region = "sfo3"
-  size   = "s-4vcpu-8gb-intel"
-  ssh_keys = [
-    data.digitalocean_ssh_key.evaro-desktop.id,
-    data.digitalocean_ssh_key.evaro-laptop.id,
-    data.digitalocean_ssh_key.nepo-desktop.id,
-    data.digitalocean_ssh_key.nepo-laptop.id,
-    data.digitalocean_ssh_key.provisioner.id
-  ]
-  connection {
-    host        = self.ipv4_address
-    user        = "root"
-    type        = "ssh"
-    private_key = file(var.pvt_key)
-    timeout     = "2m"
+resource "azurerm_resource_group" "devserver" {
+  name     = "devserver-resources"
+  location = "West US 2"
+}
+
+resource "azurerm_virtual_network" "devserver" {
+  name                = "devserver-network"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.devserver.location
+  resource_group_name = azurerm_resource_group.devserver.name
+}
+
+resource "azurerm_subnet" "devserver" {
+  name                 = "internal"
+  resource_group_name  = azurerm_resource_group.devserver.name
+  virtual_network_name = azurerm_virtual_network.devserver.name
+  address_prefixes     = ["10.0.2.0/24"]
+}
+
+resource "azurerm_public_ip" "devserver" {
+  name                = "devserver-public-ip"
+  domain_name_label   = "devserver"
+  location            = azurerm_resource_group.devserver.location
+  resource_group_name = azurerm_resource_group.devserver.name
+  allocation_method   = "Static"
+}
+
+resource "azurerm_network_interface" "devserver" {
+  name                = "devserver-nic"
+  location            = azurerm_resource_group.devserver.location
+  resource_group_name = azurerm_resource_group.devserver.name
+
+  ip_configuration {
+    name                          = "internal"
+    subnet_id                     = azurerm_subnet.devserver.id
+    private_ip_address_allocation = "Dynamic"
+    public_ip_address_id          = azurerm_public_ip.devserver.id
   }
 }
 
-resource "digitalocean_floating_ip_assignment" "devip" {
-  ip_address = "146.190.1.89"
-  droplet_id = digitalocean_droplet.devserver.id
+resource "azurerm_linux_virtual_machine" "devserver" {
+  name                = "devserver"
+  resource_group_name = azurerm_resource_group.devserver.name
+  location            = azurerm_resource_group.devserver.location
+  size                = "Standard_D2as_v4"
+  admin_username      = "ciencia_datos"
+  network_interface_ids = [
+    azurerm_network_interface.devserver.id,
+  ]
+
+  admin_ssh_key {
+    username   = "ciencia_datos"
+    public_key = file("~/.ssh/id_rsa.pub")
+  }
+
+  os_disk {
+    caching              = "ReadWrite"
+    storage_account_type = "Standard_LRS"
+  }
+
+  source_image_reference {
+    publisher = "canonical"
+    offer     = "0001-com-ubuntu-server-jammy"
+    sku       = "22_04-lts-gen2"
+    version   = "latest"
+  }
+}
+
+data "azurerm_public_ip" "devserver" {
+  name                = azurerm_public_ip.devserver.name
+  resource_group_name = azurerm_linux_virtual_machine.devserver.resource_group_name
+}
+
+output "devserver_ip" {
+  value = data.azurerm_public_ip.devserver.ip_address
 }
