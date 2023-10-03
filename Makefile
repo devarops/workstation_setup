@@ -1,17 +1,21 @@
-all: create_server sleep host_known setup_server setup_users setup_guests
+all: create_server sleep host_known setup_server setup_users
 
 .PHONY: \
 	all \
 	check \
+	clean \
 	create_server \
 	destroy_server \
 	format \
 	host_known \
 	init \
-	setup_guests \
 	setup_server \
 	setup_users \
 	sleep
+
+check:
+	ansible-lint ansible/development.yml ansible/setup_users.yml
+	cd src && terraform fmt -check
 
 clean:
 	rm --force --recursive src/.terraform
@@ -19,25 +23,22 @@ clean:
 	rm --force src/terraform.tfstate*
 
 create_server: init
-	cd src && terraform apply -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
+	cd src && terraform apply -auto-approve
 
 destroy_server: init
-	cd src && terraform destroy -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
+	cd src && terraform destroy -auto-approve -target="azurerm_linux_virtual_machine.devserver"
+
+format:
+	cd src && terraform fmt
 
 host_known:
-	ssh-keyscan "islasgeci.dev" > "$${HOME}/.ssh/known_hosts"
+	cd src && \
+	ssh-keyscan "$$(terraform output -raw devserver_ip)" > "$${HOME}/.ssh/known_hosts"
 
 init:
 	cd src && \
 	az login --username $${AZURE_USERNAME} --password $${AZURE_PASSWORD} && \
 	terraform init
-
-format:
-	cd src && terraform fmt
-
-check:
-	ansible-lint ansible/development.yml ansible/setup_users.yml
-	cd src && terraform fmt -check
 
 setup_server:
 	cd src && \
