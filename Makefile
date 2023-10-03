@@ -43,12 +43,12 @@ init:
 setup_server:
 	cd src && \
 	export DEVSERVER_IP=$$(terraform output -raw devserver_ip) && \
-	ansible-playbook ansible/development.yml
+	ansible-playbook /workdir/ansible/development.yml
 
 setup_users:
 	cd src && \
 	export DEVSERVER_IP=$$(terraform output -raw devserver_ip) && \
-	ansible-playbook ansible/setup_users.yml
+	ansible-playbook /workdir/ansible/setup_users.yml
 
 sleep:
 	@echo "Waiting to avoid conflicts with APT. 😴 💤 😪"
