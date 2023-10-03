@@ -1,4 +1,4 @@
-all: init create_server sleep host_known setup_server setup_users setup_guests
+all: create_server sleep host_known setup_server setup_users setup_guests
 
 .PHONY: \
 	all \
@@ -18,17 +18,19 @@ clean:
 	rm --force src/.terraform.lock.hcl
 	rm --force src/terraform.tfstate*
 
-create_server:
+create_server: init
 	cd src && terraform apply -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
-destroy_server:
+destroy_server: init
 	cd src && terraform destroy -auto-approve -var "do_token=$${DO_PAT}" -var "pvt_key=$${HOME}/.ssh/id_rsa"
 
 host_known:
 	ssh-keyscan "islasgeci.dev" > "$${HOME}/.ssh/known_hosts"
 
 init:
-	cd src && terraform init
+	cd src && \
+	az login --username $${AZURE_USERNAME} --password $${AZURE_PASSWORD} && \
+	terraform init
 
 format:
 	cd src && terraform fmt
