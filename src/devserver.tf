@@ -42,7 +42,7 @@ resource "azurerm_linux_virtual_machine" "devserver" {
   name                = "devserver"
   resource_group_name = azurerm_resource_group.devserver.name
   location            = azurerm_resource_group.devserver.location
-  size                = "Standard_D4plds_v5"
+  size                = "Standard_B4ms"
   admin_username      = "ciencia_datos"
   network_interface_ids = [
     azurerm_network_interface.devserver.id,
