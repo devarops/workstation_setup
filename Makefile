@@ -26,7 +26,9 @@ create_server: init
 	cd src && terraform apply -auto-approve
 
 destroy_server: init
-	cd src && terraform destroy -auto-approve -target="azurerm_linux_virtual_machine.devserver"
+	cd src && terraform destroy -auto-approve -target="azurerm_linux_virtual_machine.devserver" && \
+	terraform destroy -auto-approve -target="azurerm_network_interface.devserver" && \
+	terraform destroy -auto-approve -target="azurerm_virtual_network.devserver"
 
 format:
 	cd src && terraform fmt
