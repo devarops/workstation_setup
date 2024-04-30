@@ -43,7 +43,7 @@
     - name: Install `container-runner` for `geci-testmake`
       community.general.pipx:
         name: container-runner
-        souce: 0.1.0
+        source: 0.1.0
     - name: Add '{{ ansible_user_id }}' to docker group
       user:
         name: "{{ ansible_user_id }}"
