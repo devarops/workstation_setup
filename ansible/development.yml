@@ -41,7 +41,7 @@
         name: docker
       notify: Restart server
     - name: Install `container-runner` for `geci-testmake`
-      pip:
+      community.general.pipx:
         name: container-runner==0.1.0
     - name: Add '{{ ansible_user_id }}' to docker group
       user:
