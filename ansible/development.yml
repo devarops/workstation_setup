@@ -1,4 +1,9 @@
 ---
+collections:
+  # Install a collection from Ansible Galaxy.
+  - name: community.general
+    source: https://galaxy.ansible.com
+
 - name: Install software using package managers
   hosts: devserver
   tasks:
