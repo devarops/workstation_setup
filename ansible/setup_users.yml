@@ -14,6 +14,8 @@
         github_username: MemoOlv
       - name: ybedolla
         github_username: ybedolla
+      - name: chio
+        github_username: Chio360
   tasks:
     - name: Create users
       ansible.builtin.user:
