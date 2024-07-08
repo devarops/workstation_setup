@@ -45,7 +45,7 @@ init:
 setup_server:
 	cd src && \
 	export DEVSERVER_IP=$$(terraform output -raw devserver_ip) && \
-	ansible-galaxy collection install community.general:==9.0 && \
+	ansible-galaxy collection install community.general:==9.0.1 && \
 	ansible-playbook /workdir/ansible/development.yml
 
 setup_users:
