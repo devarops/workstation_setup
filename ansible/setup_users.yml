@@ -33,17 +33,19 @@
       loop: "{{ users }}"
 
     - name: Clone dotfiles
-      git:
+      ansible.builtin.git:
         repo: "https://github.com/{{ item.github_username }}/dotfiles.git"
         dest: "/home/{{ item.name }}/dotfiles"
         depth: 1
       loop: "{{ users }}"
 
     - name: Install dotfiles
-      copy:
+      ansible.builtin.copy:
         src: "/home/{{ item.name }}/dotfiles/"
         dest: "/home/{{ item.name }}/"
         remote_src: true
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
       loop: "{{ users }}"
 
     - name: Add credentials to user profile
