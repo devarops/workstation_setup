@@ -120,6 +120,8 @@
     - name: Crontab
       ansible.builtin.command: "crontab {{ ansible_facts.user_dir }}/src/Cronfile"
       become: true
+      register: my_output # <- Registers the command output.
+      changed_when: my_output.rc != 0 
 
 - name: Tests
   hosts: devserver
