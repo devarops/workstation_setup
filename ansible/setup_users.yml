@@ -44,8 +44,7 @@
         src: "/home/{{ item.name }}/dotfiles/"
         dest: "/home/{{ item.name }}/"
         remote_src: true
-        owner: "{{ item.name }}"
-        group: "{{ item.name }}"
+        mode: preserve
       loop: "{{ users }}"
 
     - name: Add credentials to user profile
