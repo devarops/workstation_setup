@@ -87,7 +87,7 @@
     - name: Run 'install' testmake
       community.general.make:
         chdir: "{{ ansible_facts.user_dir }}/testmake"
-        target: install
+        target: install_in_container
       become: true
 
 - name: Set system up
