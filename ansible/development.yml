@@ -3,50 +3,50 @@
   hosts: devserver
   tasks:
     - name: Update system
-      apt:
+      ansible.builtin.apt:
         update_cache: true
       become: true
     - name: Install cURL
-      apt:
+      ansible.builtin.apt:
         name: "curl"
         state: present
       become: true
     - name: Install Docker
-      apt:
+      ansible.builtin.apt:
         name: "docker.io"
         state: present
       become: true
     - name: Install Docker-compose
-      apt:
+      ansible.builtin.apt:
         name: "docker-compose"
         state: present
       become: true
     - name: Install Git
-      apt:
+      ansible.builtin.apt:
         name: "git"
         state: present
       become: true
     - name: Install Make
-      apt:
+      ansible.builtin.apt:
         name: "make"
         state: present
       become: true
     - name: Install pip
-      apt:
+      ansible.builtin.apt:
         name: "python3-pip"
         state: present
       become: true
     - name: Install pipx
-      apt:
+      ansible.builtin.apt:
         name: "pipx"
         state: present
       become: true
     - name: Install Docker SDK for Python
-      pip:
+      ansible.builtin.pip:
         name: docker
       notify: Restart server
-    - name: Add '{{ ansible_user_id }}' to docker group
-      user:
+    - name: Add to docker group '{{ ansible_user_id }}'
+      ansible.builtin.user:
         name: "{{ ansible_user_id }}"
         groups: docker
         append: true
@@ -54,21 +54,21 @@
       notify: Restart server
   handlers:
     - name: Restart server
-      reboot:
+      ansible.builtin.reboot:
       become: true
 
 - name: Install IslasGECI dotfiles
   hosts: devserver
   tasks:
     - name: Clone IslasGECI dotfiles
-      git:
+      ansible.builtin.git:
         repo: https://github.com/IslasGECI/dotfiles.git
         dest: "{{ ansible_facts.user_dir }}/dotfiles/"
         clone: true
         update: true
         version: develop
     - name: Install IslasGECI dotfiles
-      make:
+      community.general.make:
         chdir: "{{ ansible_facts.user_dir }}/dotfiles"
         target: install
       become: true
@@ -77,14 +77,14 @@
   hosts: devserver
   tasks:
     - name: Clone testmake repository
-      git:
+      ansible.builtin.git:
         repo: https://github.com/IslasGECI/testmake.git
         dest: "{{ ansible_facts.user_dir }}/testmake/"
         clone: true
         update: true
         version: develop
     - name: Run 'install' testmake
-      make:
+      community.general.make:
         chdir: "{{ ansible_facts.user_dir }}/testmake"
         target: install
       become: true
@@ -93,11 +93,11 @@
   hosts: devserver
   tasks:
     - name: Configura huso horario
-      timezone:
+      community.general.timezone:
         name: America/Los_Angeles
       become: true
     - name: Ensure group "share" exists
-      group:
+      ansible.builtin.group:
         name: share
         state: present
       become: true
@@ -110,21 +110,21 @@
         mode: g+rws,o+rwx
       become: true
     - name: Copy scripts
-      copy:
+      ansible.builtin.copy:
         src: /workdir/src
         dest: "{{ ansible_facts.user_dir }}"
         mode: +x
       notify: crontab
       become: true
   handlers:
-    - name: crontab
-      command: "crontab {{ ansible_facts.user_dir }}/src/Cronfile"
+    - name: Crontab
+      ansible.builtin.command: "crontab {{ ansible_facts.user_dir }}/src/Cronfile"
       become: true
 
 - name: Tests
   hosts: devserver
   tasks:
     - name: Pull PDE Docker image
-      docker_container:
+      community.docker.docker_container:
         name: islasgeci_pde
         image: islasgeci/pde
