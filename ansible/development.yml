@@ -41,6 +41,10 @@
         name: "pipx"
         state: present
       become: true
+    - name: Install Docker SDK for Python
+      ansible.builtin.pipx:
+        name: docker
+      notify: Restart server
     - name: Add to docker group '{{ ansible_user_id }}'
       ansible.builtin.user:
         name: "{{ ansible_user_id }}"
