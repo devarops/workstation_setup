@@ -41,11 +41,6 @@
         name: "pipx"
         state: present
       become: true
-    - name: Remove EXTERNALLY-MANAGED file
-      ansible.builtin.file:
-        path: /usr/lib/python3.{{ ansible_python.version.minor }}/EXTERNALLY-MANAGED
-        state: absent
-        owner: ciencia_datos
     - name: Install Docker SDK for Python
       community.general.pipx:
         name: docker
