@@ -5,6 +5,8 @@
     - name: Update system
       ansible.builtin.apt:
         update_cache: true
+        upgrade: dist
+        cache_valid_time: 3600 
       become: true
     - name: Install cURL
       ansible.builtin.apt:
