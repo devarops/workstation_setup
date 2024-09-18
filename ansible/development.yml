@@ -42,7 +42,7 @@
         state: present
       become: true
     - name: Install Docker SDK for Python
-      ansible.builtin.pipx:
+      community.general.pipx:
         name: docker
       notify: Restart server
     - name: Add to docker group '{{ ansible_user_id }}'
