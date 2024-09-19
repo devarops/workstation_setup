@@ -16,6 +16,8 @@
         github_username: ybedolla
       - name: chio
         github_username: Chio360
+      - name: max
+        github_username: MaximilianoVM
   tasks:
     - name: Create users
       ansible.builtin.user:
