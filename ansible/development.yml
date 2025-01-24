@@ -131,3 +131,17 @@
       community.docker.docker_container:
         name: islasgeci_pde
         image: islasgeci/pde
+
+- name: Run nerd_demo Docker container
+  hosts: devserver
+  tasks:
+    - name: Run nerd_demo container
+      community.docker.docker_container:
+        name: nerd_demo
+        image: islasgeci/nerd_demo
+        state: started
+        detach: true
+        published_ports:
+          - "8080:8888"
+        auto_remove: true
+      become: true
