@@ -89,6 +89,14 @@
         chdir: "{{ ansible_facts.user_dir }}/testmake"
         target: install_in_container
       become: true
+    - name: Install container-runner
+      community.general.pipx:
+        name: container-runner
+        source: 0.1.0
+        install_deps: true
+        state: present
+        executable: /usr/bin/pipx
+        install_global: yes
 
 - name: Set system up
   hosts: devserver
