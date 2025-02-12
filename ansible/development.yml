@@ -96,7 +96,7 @@
         install_deps: true
         state: present
         executable: /usr/bin/pipx
-        install_global: yes
+        global: true
 
 - name: Set system up
   hosts: devserver
