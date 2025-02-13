@@ -94,7 +94,7 @@
         name: container-runner
         source: 0.1.0
         install_deps: true
-        state: present
+        state: install
         executable: /usr/bin/pipx
 
 - name: Set system up
