@@ -63,3 +63,11 @@
         owner: "{{ item.name }}"
         group: "{{ item.name }}"
       loop: "{{ users }}"
+
+    - name: Install container-runner
+      community.general.pipx:
+        name: container-runner
+        source: 0.1.0
+        install_deps: true
+        state: install
+        executable: /usr/bin/pipx
