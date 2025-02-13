@@ -49,14 +49,6 @@
         mode: preserve
       loop: "{{ users }}"
 
-    - name: Copy container-runner
-      ansible.builtin.copy:
-        src: "/root/.local/bin/container_runner"
-        dest: "/home/{{ item.name }}/.local/bin/"
-        remote_src: true
-        mode: preserve
-      loop: "{{ users }}"
-
     - name: Add credentials to user profile
       ansible.builtin.lineinfile:
         path: "/home/{{ item.name }}/.profile"
