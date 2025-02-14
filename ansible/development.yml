@@ -118,14 +118,6 @@
         group: share
         mode: g+rws,o+rwx
       become: true
-    - name: Copy container-runner
-      ansible.builtin.copy:
-        src: "/root/.local/bin/container_runner"
-        dest: "/usr/local/bin/"
-        remote_src: true
-        group: share
-        mode: g+rwx,o+rwx
-      become: true
     - name: Copy scripts
       ansible.builtin.copy:
         src: /workdir/src
